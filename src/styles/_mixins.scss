@@ -1,0 +1,20 @@
+@mixin align-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin light-shadow {
+  box-shadow: 1px 1px 20px lightgrey;
+}
+
+@mixin btn-large {
+  height: 56px;
+}
+
+@mixin btn-medium {
+  height: 36px;
+}
+
+@mixin btn-small {
+  height: 26px;
+}
