@@ -1,2 +1,27 @@
-<p>courses works!</p>
-<app-course-item></app-course-item>
+<div class="section">
+  <div class="search">
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Type to search" [(ngModel)]="search" />
+    </mat-form-field>
+    <button mat-flat-button color="accent" (click)="handleSearch()">
+      Search
+    </button>
+  </div>
+  <button mat-flat-button color="primary">
+    <mat-icon class="material-icons-outlined">add_circle_outline</mat-icon>
+    Add course
+  </button>
+
+  <div class="courses" *ngIf="coursesData.length > 0">
+    <app-course-item
+      *ngFor="let course of coursesData"
+      (delete)="handleDelete($event)"
+      (edit)="handleEdit($event)"
+      [course]="course"
+    ></app-course-item>
+  </div>
+
+  <div class="load">
+    <button mat-button (click)="loadMore()">Load more</button>
+  </div>
+</div>

@@ -1,4 +1,31 @@
-.header {
-  height: 70px;
-  background-color: yellow;
+@import "colors";
+@import "mixins";
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: $dark-background;
+  padding: 0 50px;
+  color: white;
+}
+
+.logo {
+  @include align-center;
+  gap: 5px;
+
+  & span {
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+
+  & mat-icon {
+    background: -webkit-linear-gradient(#046a89, #3ff472);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 34px;
+    height: 34px;
+    font-size: 34px;
+  }
 }

@@ -1,0 +1,53 @@
+@import "mixins";
+@import "colors";
+
+.section {
+  padding: 25px 50px;
+  display: flex;
+  flex-direction: column;
+
+  & .search {
+    display: flex;
+    gap: 20px;
+
+    & mat-form-field {
+      width: 300px;
+      height: 56px;
+      background-color: $white-background;
+    }
+
+    & button {
+      @include btn-large;
+    }
+  }
+
+  & > button {
+    @include btn-large;
+
+    align-self: flex-end;
+    margin-bottom: 20px;
+  }
+
+  & .courses {
+    display: grid;
+    gap: 24px;
+  }
+
+  & .load {
+    @include light-shadow;
+
+    display: flex;
+    justify-content: center;
+    background-color: $white-background;
+    padding: 8px 0;
+    margin: 30px 0 50px;
+
+    & button {
+      font-size: 12px;
+      line-height: 24px;
+      text-transform: uppercase;
+      color: blue;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,1 +1,30 @@
-<p>course-item works!</p>
+<div class="course">
+  <div class="course_heading">
+    <h3>{{ course.title }}</h3>
+    <div class="time_data">
+      <p>
+        <mat-icon> schedule </mat-icon>
+        <!-- need help with that(how I can use fn in html without bind - helpers) -->
+        {{ courseDuration(course.duration) }}
+      </p>
+      <p>
+        <mat-icon> calendar_today </mat-icon>
+        {{ course.creationDate | date : "MM/dd/yyyy" }}
+      </p>
+    </div>
+  </div>
+  <div class="course_info">
+    <p class="description">
+      {{ course.description }}
+    </p>
+    <div class="course_actions">
+      <button mat-flat-button color="primary" (click)="handleEdit(course.id)">
+        <mat-icon> edit </mat-icon>
+        Edit
+      </button>
+      <button mat-flat-button color="primary" (click)="handleDelete(course.id)">
+        <mat-icon> delete </mat-icon> Delete
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+@import "mixins";
+@import "colors";
+
+.course {
+  @include light-shadow;
+
+  background-color: $white-background;
+  border-radius: 5px;
+  padding: 24px;
+
+  &_info {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 25px;
+  }
+
+  &_heading {
+    @include align-center;
+
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+    & h3 {
+      font-size: 24px;
+    }
+  }
+
+  & .time_data {
+    display: flex;
+    align-self: flex-start;
+    color: #858897;
+    gap: 20px;
+    font-size: 14px;
+
+    & p {
+      @include align-center;
+      gap: 5px;
+    }
+  }
+
+  & .course_actions {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 20px;
+
+    & button {
+      @include btn-small;
+    }
+  }
+
+  & .description {
+    line-height: 18px;
+    letter-spacing: 0;
+    color: $dart-text;
+    font-size: 14px;
+  }
+}

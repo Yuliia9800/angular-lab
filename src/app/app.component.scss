@@ -1,5 +1,8 @@
+@import "colors";
+
 .main {
-  background-color: aqua;
-  width:100%;
-  height: calc(100% - 70px - 70px)
+  background-color: $base-background;
+  width: 100%;
+  height: calc(100% - 60px - 60px);
+  overflow: scroll;
 }

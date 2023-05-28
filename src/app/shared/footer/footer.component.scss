@@ -1,7 +1,17 @@
+@import "colors";
+
 .footer {
-  height: 70px;
-  background-color: green;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60px;
+  background-color: $dark-background;
   position: fixed;
   bottom: 0;
   width: 100%;
+  color: $white-text;
+
+  & span {
+    padding-right: 50px;
+  }
 }
