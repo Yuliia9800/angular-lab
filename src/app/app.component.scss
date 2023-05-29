@@ -4,5 +4,5 @@
   background-color: $base-background;
   width: 100%;
   height: calc(100% - 60px - 60px);
-  overflow: scroll;
+  overflow-y: scroll;
 }
