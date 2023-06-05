@@ -29,4 +29,45 @@ describe('CoursesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('loadMore', () => {
+    it('console log should have been called', () => {
+      spyOn(console, 'log');
+
+      component.loadMore();
+
+      expect(console.log).toHaveBeenCalledWith('load more');
+    });
+  });
+
+  describe('handleSearch', () => {
+    it('console log should have been called', () => {
+      spyOn(console, 'log');
+      component.search = 'test';
+
+      component.handleSearch();
+
+      expect(console.log).toHaveBeenCalledWith('Search value =', 'test');
+    });
+  });
+
+  describe('handleDelete', () => {
+    it('console log should have been called', () => {
+      spyOn(console, 'log');
+
+      component.handleDelete('1');
+
+      expect(console.log).toHaveBeenCalledWith('Delete id =', '1');
+    });
+  });
+
+  describe('handleEdit', () => {
+    it('console log should have been called', () => {
+      spyOn(console, 'log');
+
+      component.handleEdit('2');
+
+      expect(console.log).toHaveBeenCalledWith('Edit id =', '2');
+    });
+  });
 });
