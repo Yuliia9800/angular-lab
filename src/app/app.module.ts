@@ -13,6 +13,9 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseItemComponent } from './courses/course-item/course-item.component';
+import { DurationPipe } from './pipes/duration.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { CourseItemComponent } from './courses/course-item/course-item.component
     FooterComponent,
     CoursesComponent,
     CourseItemComponent,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

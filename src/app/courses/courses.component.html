@@ -12,14 +12,19 @@
     Add course
   </button>
 
-  <div class="courses" *ngIf="coursesData.length > 0">
+  <div class="courses" *ngIf="coursesData.length > 0; else elseBlock">
     <app-course-item
-      *ngFor="let course of coursesData"
+      *ngFor="
+        let course of coursesData
+          | orderBy : 'creationDate'
+          | filter : filterBy : 'title'
+      "
       (delete)="handleDelete($event)"
       (edit)="handleEdit($event)"
       [course]="course"
     ></app-course-item>
   </div>
+  <ng-template #elseBlock>No data. Feel free to add new course</ng-template>
 
   <div class="load">
     <button mat-button (click)="loadMore()">Load more</button>

@@ -8,6 +8,7 @@ import { courses } from '../utils/public_api';
 })
 export class CoursesComponent {
   search = '';
+  filterBy = '';
   coursesData = courses;
 
   loadMore() {
@@ -16,6 +17,7 @@ export class CoursesComponent {
 
   handleSearch() {
     console.log('Search value =', this.search);
+    this.filterBy = this.search;
   }
 
   handleDelete(id: string) {

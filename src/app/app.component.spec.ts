@@ -15,6 +15,9 @@ import { CoursesComponent } from './courses/courses.component';
 import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DurationPipe } from './pipes/duration.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -37,6 +40,9 @@ describe('AppComponent', () => {
         FooterComponent,
         CoursesComponent,
         CourseItemComponent,
+        DurationPipe,
+        OrderByPipe,
+        FilterPipe,
       ],
     })
   );
