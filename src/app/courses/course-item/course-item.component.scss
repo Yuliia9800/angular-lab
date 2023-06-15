@@ -8,6 +8,9 @@
   border-radius: 5px;
   padding: 24px;
 
+  border-width: 1px;
+  border-style: solid;
+
   &_info {
     display: grid;
     grid-template-columns: 1fr 200px;
@@ -54,4 +57,8 @@
     color: $dart-text;
     font-size: 14px;
   }
+}
+
+.top {
+  background-color: #dbe7dc8a;
 }

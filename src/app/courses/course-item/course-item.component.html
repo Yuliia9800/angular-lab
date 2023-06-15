@@ -1,11 +1,20 @@
-<div class="course">
+<div
+  class="course"
+  appBorderColor
+  [creationDate]="course.creationDate"
+  [isTopRated]="course.isTopRated"
+  [ngClass]="{ top: course.isTopRated }"
+>
   <div class="course_heading">
-    <h3>{{ course.title }}</h3>
+    <h3>
+      {{ course.title | uppercase }}
+      <span class="star" *ngIf="course.isTopRated"> ⭐ </span>
+    </h3>
     <div class="time_data">
       <p>
         <mat-icon> schedule </mat-icon>
 
-        {{ course.duration }} min
+        {{ course.duration | duration }}
       </p>
       <p>
         <mat-icon> calendar_today </mat-icon>

@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CourseItemComponent } from './course-item.component';
 import { CourseItem } from 'src/app/utils/public_api';
 import { first } from 'rxjs';
+import { DurationPipe } from 'src/app/pipes/duration.pipe';
+import { BorderColorDirective } from 'src/app/directives/border-color.directive';
 
 describe('CourseItemComponent', () => {
   const course: CourseItem = {
@@ -11,7 +13,8 @@ describe('CourseItemComponent', () => {
     title: 'test',
     description: 'test2',
     duration: 10,
-    creationDate: new Date(),
+    creationDate: new Date('06/11/2023'),
+    isTopRated: false,
   };
 
   let component: CourseItemComponent;
@@ -20,7 +23,7 @@ describe('CourseItemComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MatIconModule],
-      declarations: [CourseItemComponent],
+      declarations: [CourseItemComponent, DurationPipe, BorderColorDirective],
     });
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
@@ -28,6 +31,8 @@ describe('CourseItemComponent', () => {
   });
 
   it('should create', () => {
+    component.course = course;
+
     expect(component).toBeTruthy();
   });
 

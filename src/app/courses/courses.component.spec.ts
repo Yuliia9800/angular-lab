@@ -6,6 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
+import { FilterPipe } from '../pipes/filter.pipe';
+import { OrderByPipe } from '../pipes/order-by.pipe';
+import { DurationPipe } from '../pipes/duration.pipe';
+import { BorderColorDirective } from '../directives/border-color.directive';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -19,7 +23,14 @@ describe('CoursesComponent', () => {
         MatIconModule,
         BrowserAnimationsModule,
       ],
-      declarations: [CoursesComponent, CourseItemComponent],
+      declarations: [
+        CoursesComponent,
+        CourseItemComponent,
+        OrderByPipe,
+        FilterPipe,
+        DurationPipe,
+        BorderColorDirective,
+      ],
     });
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
@@ -48,6 +59,13 @@ describe('CoursesComponent', () => {
       component.handleSearch();
 
       expect(console.log).toHaveBeenCalledWith('Search value =', 'test');
+    });
+    it('should rewrite filterBy value to search value', () => {
+      component.search = 'test';
+
+      component.handleSearch();
+
+      expect(component.filterBy).toBe(component.search);
     });
   });
 
