@@ -57,35 +57,4 @@ describe('CourseItemComponent', () => {
       component.handleEdit(course.id);
     });
   });
-
-  // describe('appBorderColor', () => {
-  //   it('should return greenBorder class', () => {
-  //     component.course = course;
-  //     expect(component.appBorderColor).toEqual({
-  //       greenBorder: true,
-  //       blueBorder: false,
-  //       greyBorder: false,
-  //     });
-  //   });
-  //   it('should return blueBorder class', () => {
-  //     component.course = { ...course, creationDate: new Date('06/20/2023') };
-  //     expect(component.appBorderColor).toEqual({
-  //       greenBorder: false,
-  //       blueBorder: true,
-  //       greyBorder: false,
-  //     });
-  //   });
-  //   it('should return greyBorder class', () => {
-  //     component.course = {
-  //       ...course,
-  //       isTopRated: true,
-  //       creationDate: new Date('04/20/2023'),
-  //     };
-  //     expect(component.appBorderColor).toEqual({
-  //       greenBorder: false,
-  //       blueBorder: false,
-  //       greyBorder: true,
-  //     });
-  //   });
-  // });
 });
