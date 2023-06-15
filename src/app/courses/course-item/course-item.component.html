@@ -1,4 +1,10 @@
-<div class="course" [ngClass]="addClass()">
+<div
+  class="course"
+  appBorderColor
+  [creationDate]="course.creationDate"
+  [isTopRated]="course.isTopRated"
+  [ngClass]="{ top: course.isTopRated }"
+>
   <div class="course_heading">
     <h3>
       {{ course.title | uppercase }}

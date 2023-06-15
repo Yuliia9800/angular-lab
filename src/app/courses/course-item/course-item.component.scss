@@ -8,6 +8,9 @@
   border-radius: 5px;
   padding: 24px;
 
+  border-width: 1px;
+  border-style: solid;
+
   &_info {
     display: grid;
     grid-template-columns: 1fr 200px;
@@ -56,14 +59,6 @@
   }
 }
 
-.greenBorder {
-  border: 2px solid $green-border;
-}
-
-.blueBorder {
-  border: 2px solid $blue-border;
-}
-
-.greyBorder {
-  border: 2px solid $grey-border;
+.top {
+  background-color: #dbe7dc8a;
 }

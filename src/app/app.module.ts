@@ -16,6 +16,7 @@ import { CourseItemComponent } from './courses/course-item/course-item.component
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { BorderColorDirective } from './directives/border-color.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     DurationPipe,
     OrderByPipe,
     FilterPipe,
+    BorderColorDirective,
   ],
   imports: [
     BrowserModule,

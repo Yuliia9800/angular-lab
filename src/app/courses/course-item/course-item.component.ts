@@ -18,22 +18,4 @@ export class CourseItemComponent {
   handleEdit(id: string) {
     this.edit.emit(id);
   }
-
-  subDays(number: number): Date {
-    const date = new Date();
-
-    date.setDate(date.getDate() - number);
-
-    return date;
-  }
-
-  addClass() {
-    return {
-      greenBorder:
-        this.course?.creationDate?.getTime() < new Date().getTime() &&
-        this.course?.creationDate?.getTime() >= this.subDays(14).getTime(),
-      blueBorder: this.course?.creationDate?.getTime() > new Date().getTime(),
-      greyBorder: this.course?.isTopRated,
-    };
-  }
 }

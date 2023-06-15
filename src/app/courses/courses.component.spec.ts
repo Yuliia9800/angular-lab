@@ -9,6 +9,7 @@ import { CourseItemComponent } from './course-item/course-item.component';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { OrderByPipe } from '../pipes/order-by.pipe';
 import { DurationPipe } from '../pipes/duration.pipe';
+import { BorderColorDirective } from '../directives/border-color.directive';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -28,6 +29,7 @@ describe('CoursesComponent', () => {
         OrderByPipe,
         FilterPipe,
         DurationPipe,
+        BorderColorDirective,
       ],
     });
     fixture = TestBed.createComponent(CoursesComponent);
