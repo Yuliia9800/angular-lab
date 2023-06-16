@@ -4,13 +4,10 @@ import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
   selector: '[appBorderColor]',
 })
 export class BorderColorDirective implements AfterViewInit {
-  @Input() creationDate = null as unknown as Date;
+  @Input() creationDate!: Date;
   @Input() isTopRated = false;
-  elementRef: any;
 
-  constructor(element: ElementRef) {
-    this.elementRef = element;
-  }
+  constructor(private elementRef: ElementRef) {}
 
   subDays(number: number): Date {
     const date = new Date();

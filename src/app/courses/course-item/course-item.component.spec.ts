@@ -6,6 +6,8 @@ import { CourseItem } from 'src/app/utils/public_api';
 import { first } from 'rxjs';
 import { DurationPipe } from 'src/app/pipes/duration.pipe';
 import { BorderColorDirective } from 'src/app/directives/border-color.directive';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('CourseItemComponent', () => {
   const course: CourseItem = {
@@ -19,6 +21,7 @@ describe('CourseItemComponent', () => {
 
   let component: CourseItemComponent;
   let fixture: ComponentFixture<CourseItemComponent>;
+  let element: DebugElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,7 +30,7 @@ describe('CourseItemComponent', () => {
     });
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    element = fixture.debugElement.query(By.directive(BorderColorDirective));
   });
 
   it('should create', () => {
@@ -55,6 +58,30 @@ describe('CourseItemComponent', () => {
       });
 
       component.handleEdit(course.id);
+    });
+  });
+
+  describe('appBorderColor', () => {
+    it('should set the border color to green if the creation date is within the last 14 days', () => {
+      component.course.creationDate = new Date(Date.now() - 1000);
+      fixture.detectChanges();
+
+      expect(element.nativeElement.style.borderColor).toBe('rgb(44, 206, 44)');
+    });
+
+    it('should set the border color to blue if the creation date is in the future', () => {
+      component.course.creationDate = new Date(Date.now() + 86400000);
+      fixture.detectChanges();
+      expect(element.nativeElement.style.borderColor).toBe('rgb(0, 183, 255)');
+    });
+
+    it('should set the border color to gray if isTopRated is true', () => {
+      component.course.isTopRated = true;
+      fixture.detectChanges();
+
+      expect(element.nativeElement.style.borderColor).toBe(
+        'rgb(196, 193, 193)'
+      );
     });
   });
 });
