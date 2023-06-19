@@ -3,12 +3,12 @@
     <mat-icon>play_circle_outline</mat-icon>
     <span>video course</span>
   </div>
-  <div>
+  <div *ngIf="isAuthenticated">
     <button mat-button>
       <mat-icon>person</mat-icon>
       User
     </button>
-    <button mat-button>
+    <button mat-button (click)="logout()">
       <mat-icon>logout</mat-icon>
       Login
     </button>

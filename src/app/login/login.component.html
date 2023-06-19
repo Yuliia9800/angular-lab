@@ -1,0 +1,32 @@
+<div class="modal">
+  <div>
+    <h3>Login</h3>
+    <form [formGroup]="profileForm" (ngSubmit)="userLogin()">
+      <label for="email"><b>Email:</b><span>* required</span></label>
+      <input
+        id="email"
+        type="text"
+        placeholder="Enter Email"
+        name="email"
+        required
+        formControlName="email"
+      />
+
+      <label for="password"><b>Password:</b><span>* required</span></label>
+      <input
+        id="password"
+        type="text"
+        placeholder="Enter Password"
+        name="password"
+        required
+        formControlName="password"
+      />
+      <div class="container">
+        <p>
+          <a href="">Forgot password </a>
+        </p>
+        <button mat-flat-button color="accent" type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
