@@ -5,7 +5,6 @@ import { AuthenticationService } from 'src/app/servises/authentication.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [AuthenticationService],
 })
 export class HeaderComponent implements OnInit {
   constructor(private auth: AuthenticationService) {}
