@@ -12,8 +12,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    console.log('log 2');
-
     localStorage.removeItem('user');
     localStorage.removeItem('token');
   }

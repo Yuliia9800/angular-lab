@@ -7,7 +7,6 @@ import { FormGroup, FormControl } from '@angular/forms';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [AuthenticationService],
 })
 export class LoginComponent {
   constructor(private service: AuthenticationService) {}

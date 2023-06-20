@@ -31,7 +31,7 @@ describe('HeaderComponent', () => {
 
   describe('logout', () => {
     it('should call logout from auth service', () => {
-      authService.logout = jasmine.createSpy('logout').and.callThrough();
+      spyOn(authService, 'logout');
 
       component.logout();
 

@@ -7,7 +7,7 @@ import { CoursesService } from '../servises/courses.service';
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
-  providers: [FilterPipe, CoursesService],
+  providers: [FilterPipe],
 })
 export class CoursesComponent implements OnInit {
   constructor(private filter: FilterPipe, private service: CoursesService) {}
@@ -34,7 +34,6 @@ export class CoursesComponent implements OnInit {
     if (confirm('Do you really want to delete this course? Yes/No ')) {
       this.service.removeItem(id);
     }
-    console.log('Delete id =', id);
   }
 
   handleEdit(id: string) {
