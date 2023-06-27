@@ -17,7 +17,8 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
-
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { BorderColorDirective } from './directives/border-color.directive';
     OrderByPipe,
     FilterPipe,
     BorderColorDirective,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { BorderColorDirective } from './directives/border-color.directive';
     MatToolbarModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

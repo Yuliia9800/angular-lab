@@ -1,0 +1,82 @@
+@import "mixins";
+@import "colors";
+
+.modal {
+  @include light-shadow;
+  background-color: $white-background;
+  border-radius: 5px;
+  padding: 24px;
+  border-width: 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 24px;
+  width: 368px;
+  height: 311px;
+
+  & h3 {
+    padding-bottom: 24px;
+    font-size: 24px;
+    text-transform: none;
+    text-align: left;
+    font-weight: 600;
+    height: 31px;
+    width: 58px;
+  }
+
+  & form {
+    display: grid;
+
+    & label {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0 10px;
+      line-height: 24px;
+      letter-spacing: 0;
+      color: $dart-text;
+      font-size: 14px;
+      text-transform: none;
+      text-align: left;
+      font-weight: 600;
+
+      & span {
+        line-height: 24px;
+        letter-spacing: 0;
+        color: #858897;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+
+    & input {
+      padding: 0 10px;
+      border-radius: 3px;
+      margin: 0 0 10px;
+      border: 1px solid #ced0db;
+      background: #ffffff;
+      box-sizing: border-box;
+      border-color: #ced0db;
+      border-width: 1px;
+      border-style: solid;
+      height: 40px;
+      width: 368px;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 0 27px;
+  }
+
+  & p {
+    line-height: 24px;
+    letter-spacing: 0;
+    font-size: 12px;
+    text-transform: none;
+    text-align: left;
+  }
+}

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { courses } from '../utils/public_api';
+import { Component, OnInit } from '@angular/core';
+import { CourseItem, courses } from '../utils/public_api';
 import { FilterPipe } from '../pipes/filter.pipe';
+import { CoursesService } from '../servises/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -8,12 +9,16 @@ import { FilterPipe } from '../pipes/filter.pipe';
   styleUrls: ['./courses.component.scss'],
   providers: [FilterPipe],
 })
-export class CoursesComponent {
-  constructor(private filter: FilterPipe) {}
+export class CoursesComponent implements OnInit {
+  constructor(private filter: FilterPipe, private service: CoursesService) {}
 
   search = '';
   filterBy = '';
-  coursesData = courses;
+  coursesData = [] as CourseItem[];
+
+  ngOnInit(): void {
+    this.coursesData = this.service.getList();
+  }
 
   loadMore() {
     console.log('load more');
@@ -26,7 +31,9 @@ export class CoursesComponent {
   }
 
   handleDelete(id: string) {
-    console.log('Delete id =', id);
+    if (confirm('Do you really want to delete this course? Yes/No ')) {
+      this.service.removeItem(id);
+    }
   }
 
   handleEdit(id: string) {

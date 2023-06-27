@@ -1,3 +1,4 @@
+import { CoursesService } from 'src/app/servises/courses.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +15,7 @@ import { BorderColorDirective } from '../directives/border-color.directive';
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
   let fixture: ComponentFixture<CoursesComponent>;
+  let coursesService: CoursesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,9 +33,15 @@ describe('CoursesComponent', () => {
         DurationPipe,
         BorderColorDirective,
       ],
-    });
+      providers: [CoursesService],
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
+    coursesService = TestBed.inject(CoursesService);
+
     fixture.detectChanges();
   });
 
@@ -70,12 +78,22 @@ describe('CoursesComponent', () => {
   });
 
   describe('handleDelete', () => {
-    it('console log should have been called', () => {
-      spyOn(console, 'log');
+    it('should call removeItem when user confirms', () => {
+      spyOn(coursesService, 'removeItem');
+      spyOn(window, 'confirm').and.returnValue(true);
 
       component.handleDelete('1');
 
-      expect(console.log).toHaveBeenCalledWith('Delete id =', '1');
+      expect(coursesService.removeItem).toHaveBeenCalledOnceWith('1');
+    });
+
+    it('shouldn`t call removeItem when user declines', () => {
+      spyOn(coursesService, 'removeItem');
+      spyOn(window, 'confirm').and.returnValue(false);
+
+      component.handleDelete('1');
+
+      expect(coursesService.removeItem).not.toHaveBeenCalled();
     });
   });
 
