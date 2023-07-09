@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="rectangle">
+    <h2>New Course</h2>
+    <form [formGroup]="newCourseForm" (ngSubmit)="submit()">
+      <label for="title"><b>Title:</b><span>* required</span></label>
+      <input
+        class="field"
+        id="title"
+        type="text"
+        placeholder="Text input"
+        name="title"
+        required
+        formControlName="title"
+      />
+
+      <label for="description">
+        <b>Description:</b><span>* required</span>
+      </label>
+      <textarea
+        matInput
+        id="description"
+        class="field description"
+        name="description"
+        placeholder="Add description"
+        required
+        formControlName="description"
+      ></textarea>
+
+      <label for="duration"><b>Duration:</b><span>* required</span></label>
+      <input
+        class="field duration"
+        id="duration"
+        type="number"
+        min="0"
+        placeholder="minutes"
+        name="duration"
+        required
+        formControlName="duration"
+      />
+
+      <label for="date"><b>Date:</b><span>* required</span></label>
+      <input
+        class="field date"
+        id="date"
+        type="date"
+        placeholder="MM/DD/YYYY"
+        name="date"
+        required
+        formControlName="date"
+      />
+
+      <label for="authors"><b>Authors:</b><span>* required</span></label>
+      <input
+        class="field authors"
+        id="authors"
+        type="text"
+        placeholder="Start typing"
+        name="authors"
+        required
+        formControlName="authors"
+      />
+      <div class="buttons">
+        <button mat-flat-button color="accent">Cancel</button>
+        <button mat-flat-button color="accent" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
