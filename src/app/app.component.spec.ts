@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -17,8 +18,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { DurationPipe } from './pipes/duration.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
-import { BorderColorDirective } from "./directives/border-color.directive";
-import { LoginComponent } from "./login/login.component";
+import { BorderColorDirective } from './directives/border-color.directive';
+import { LoginComponent } from './login/login.component';
+import { AddCourseComponent } from './add-course/add-course.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -31,6 +33,7 @@ describe('AppComponent', () => {
         MatButtonModule,
         MatToolbarModule,
         MatInputModule,
+        MatSelectModule,
         FormsModule,
         ReactiveFormsModule,
       ],
@@ -45,7 +48,8 @@ describe('AppComponent', () => {
         OrderByPipe,
         FilterPipe,
         BorderColorDirective,
-        LoginComponent
+        LoginComponent,
+        AddCourseComponent,
       ],
     }).compileComponents()
   );
