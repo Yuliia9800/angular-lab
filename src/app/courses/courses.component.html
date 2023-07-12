@@ -7,10 +7,10 @@
       Search
     </button>
   </div>
-  <button mat-flat-button color="primary">
+  <a mat-flat-button color="primary" routerLink="/courses/new">
     <mat-icon class="material-icons-outlined">add_circle_outline</mat-icon>
     Add course
-  </button>
+  </a>
 
   <div class="courses" *ngIf="coursesData.length > 0; else elseBlock">
     <app-course-item

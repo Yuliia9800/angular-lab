@@ -1,10 +1,12 @@
+import { Router } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header.component';
-import { AuthenticationService } from 'src/app/servises/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 describe('HeaderComponent', () => {
+  const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let authService: AuthenticationService;
@@ -13,7 +15,10 @@ describe('HeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [MatToolbarModule, MatIconModule],
       declarations: [HeaderComponent],
-      providers: [AuthenticationService],
+      providers: [
+        AuthenticationService,
+        { provide: Router, useValue: mockRouter },
+      ],
     }).compileComponents()
   );
 
@@ -36,6 +41,7 @@ describe('HeaderComponent', () => {
       component.logout();
 
       expect(authService.logout).toHaveBeenCalledTimes(1);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
     });
   });
 });

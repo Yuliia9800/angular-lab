@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseItem, courses } from '../utils/public_api';
 import { FilterPipe } from '../pipes/filter.pipe';
-import { CoursesService } from '../servises/courses.service';
+import { CoursesService } from '../services/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -10,7 +11,11 @@ import { CoursesService } from '../servises/courses.service';
   providers: [FilterPipe],
 })
 export class CoursesComponent implements OnInit {
-  constructor(private filter: FilterPipe, private service: CoursesService) {}
+  constructor(
+    private filter: FilterPipe,
+    private service: CoursesService,
+    private router: Router
+  ) {}
 
   search = '';
   filterBy = '';
@@ -37,6 +42,6 @@ export class CoursesComponent implements OnInit {
   }
 
   handleEdit(id: string) {
-    console.log('Edit id =', id);
+    this.router.navigate([`/courses`, id]);
   }
 }

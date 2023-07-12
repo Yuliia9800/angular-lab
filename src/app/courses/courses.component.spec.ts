@@ -1,4 +1,4 @@
-import { CoursesService } from 'src/app/servises/courses.service';
+import { CoursesService } from 'src/app/services/courses.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -11,8 +11,11 @@ import { FilterPipe } from '../pipes/filter.pipe';
 import { OrderByPipe } from '../pipes/order-by.pipe';
 import { DurationPipe } from '../pipes/duration.pipe';
 import { BorderColorDirective } from '../directives/border-color.directive';
+import { Router } from '@angular/router';
 
 describe('CoursesComponent', () => {
+  const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
+
   let component: CoursesComponent;
   let fixture: ComponentFixture<CoursesComponent>;
   let coursesService: CoursesService;
@@ -33,7 +36,7 @@ describe('CoursesComponent', () => {
         DurationPipe,
         BorderColorDirective,
       ],
-      providers: [CoursesService],
+      providers: [CoursesService, { provide: Router, useValue: mockRouter }],
     }).compileComponents();
   });
 
@@ -98,12 +101,10 @@ describe('CoursesComponent', () => {
   });
 
   describe('handleEdit', () => {
-    it('console log should have been called', () => {
-      spyOn(console, 'log');
-
+    it('should navigate to course page', () => {
       component.handleEdit('2');
 
-      expect(console.log).toHaveBeenCalledWith('Edit id =', '2');
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/courses', '2']);
     });
   });
 });

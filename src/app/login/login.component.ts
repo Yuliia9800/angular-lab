@@ -1,7 +1,8 @@
 import { User } from './../utils/global.modules';
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../servises/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private service: AuthenticationService) {}
+  constructor(private service: AuthenticationService, private router: Router) {}
 
   user = {} as User;
 
@@ -22,5 +23,6 @@ export class LoginComponent {
     const { password, email } = this.profileForm.value;
     this.service.login({ email, password });
     console.log('logged in successfully');
+    this.router.navigate(['/courses']);
   }
 }
