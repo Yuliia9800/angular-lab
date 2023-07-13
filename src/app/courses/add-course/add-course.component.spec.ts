@@ -6,7 +6,17 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AddCourseComponent } from './add-course.component';
 
 describe('AddCourseComponent', () => {
-  const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
+  const mockRouter = {
+    url: [],
+    navigate: jasmine.createSpy('navigate'),
+  };
+
+  const mockActivateRoute = {
+    snapshot: {
+      params: { id: null },
+    },
+  };
+
   let component: AddCourseComponent;
   let fixture: ComponentFixture<AddCourseComponent>;
 
@@ -15,19 +25,20 @@ describe('AddCourseComponent', () => {
       imports: [FormsModule, MatInputModule, ReactiveFormsModule],
       declarations: [AddCourseComponent],
       providers: [
-        // RouterModule.forRoot([{ path: '', component: AddCourseComponent }]),
-
         { provide: Router, useValue: mockRouter },
+        { provide: ActivatedRoute, useValue: mockActivateRoute },
       ],
     }).compileComponents();
-
-    // RouterModule.forRoot([{ path: '', component: AddCourseComponent }]),
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AddCourseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('should be created', () => {
+    expect(component).toBeTruthy();
   });
 
   describe('submit', () => {
