@@ -40,7 +40,7 @@ describe('AuthenticationService', () => {
 
   describe('getUserInfo', () => {
     it('should return user`s info', () => {
-      expect(service.getUserInfo()).toEqual({});
+      expect(service.getUserInfo()).toEqual(null);
     });
   });
 });

@@ -20,7 +20,8 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
 import { LoginComponent } from './login/login.component';
-import { AddCourseComponent } from './add-course/add-course.component';
+import { AddCourseComponent } from './courses/add-course/add-course.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -50,6 +51,7 @@ describe('AppComponent', () => {
         BorderColorDirective,
         LoginComponent,
         AddCourseComponent,
+        PagenotfoundComponent,
       ],
     }).compileComponents()
   );

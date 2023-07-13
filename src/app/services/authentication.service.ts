@@ -4,11 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  user = {};
+  user = localStorage.getItem('user');
+  token = localStorage.getItem('token');
 
   login(profile: any) {
-    localStorage.setItem('user', JSON.stringify(this.user));
+    localStorage.setItem('user', JSON.stringify(profile));
     localStorage.setItem('token', '123');
+
+    this.user = profile;
   }
 
   logout() {
@@ -17,7 +20,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return false;
+    return Boolean(this.token);
   }
 
   getUserInfo() {
