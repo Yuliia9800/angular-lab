@@ -15,14 +15,14 @@ import { CourseItem } from 'src/app/utils/public_api';
 })
 export class CourseItemComponent {
   @Input() course = {} as CourseItem;
-  @Output() delete = new EventEmitter<string>();
-  @Output() edit = new EventEmitter<string>();
+  @Output() delete = new EventEmitter<number>();
+  @Output() edit = new EventEmitter<number>();
 
-  handleDelete(id: string) {
+  handleDelete(id: number) {
     this.delete.emit(id);
   }
 
-  handleEdit(id: string) {
+  handleEdit(id: number) {
     this.edit.emit(id);
   }
 }

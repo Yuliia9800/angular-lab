@@ -5,8 +5,8 @@ describe('OrderByPipe', () => {
   const pipe = new OrderByPipe();
 
   it('transform should sort array', () => {
-    const mock = [{ title: 'cba' }, { title: 'abc' }] as CourseItem[];
+    const mock = [{ name: 'cba' }, { name: 'abc' }] as CourseItem[];
 
-    expect(pipe.transform(mock, 'title')).toBe(mock);
+    expect(pipe.transform(mock, 'name')).toBe(mock);
   });
 });

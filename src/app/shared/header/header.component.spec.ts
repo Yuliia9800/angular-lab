@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HeaderComponent } from './header.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -13,7 +14,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [MatToolbarModule, MatIconModule],
+      imports: [MatToolbarModule, MatIconModule, HttpClientTestingModule],
       declarations: [HeaderComponent],
       providers: [
         AuthenticationService,

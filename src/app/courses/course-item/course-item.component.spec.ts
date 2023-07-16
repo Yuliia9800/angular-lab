@@ -11,12 +11,13 @@ import { By } from '@angular/platform-browser';
 
 describe('CourseItemComponent', () => {
   const course: CourseItem = {
-    id: '1',
-    title: 'test',
+    id: 1,
+    name: 'test',
     description: 'test2',
-    duration: 10,
-    creationDate: new Date('06/11/2023'),
+    length: 10,
+    date: '06/11/2023',
     isTopRated: false,
+    authors: [],
   };
 
   let component: CourseItemComponent;
@@ -63,14 +64,14 @@ describe('CourseItemComponent', () => {
 
   describe('appBorderColor', () => {
     it('should set the border color to green if the creation date is within the last 14 days', () => {
-      component.course.creationDate = new Date(Date.now() - 1000);
+      component.course.date = new Date(Date.now() - 1000).toString();
       fixture.detectChanges();
 
       expect(element.nativeElement.style.borderColor).toBe('rgb(44, 206, 44)');
     });
 
     it('should set the border color to blue if the creation date is in the future', () => {
-      component.course.creationDate = new Date(Date.now() + 86400000);
+      component.course.date = new Date(Date.now() + 86400000).toString();
       fixture.detectChanges();
       expect(element.nativeElement.style.borderColor).toBe('rgb(0, 183, 255)');
     });

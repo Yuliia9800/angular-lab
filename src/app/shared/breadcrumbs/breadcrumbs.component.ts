@@ -38,7 +38,7 @@ export class BreadcrumbsComponent implements OnInit {
           } else if (router === 'new') {
             name = '/ New';
           } else {
-            name = '/ ' + courses[Number(router)]?.title;
+            name = '/ ' + courses[Number(router)]?.name;
           }
 
           this.breadcrumbList.push({ name, path });

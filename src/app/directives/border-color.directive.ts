@@ -4,7 +4,7 @@ import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
   selector: '[appBorderColor]',
 })
 export class BorderColorDirective implements AfterViewInit {
-  @Input() creationDate!: Date;
+  @Input() creationDate!: string;
   @Input() isTopRated = false;
 
   constructor(private elementRef: ElementRef) {}
@@ -18,14 +18,16 @@ export class BorderColorDirective implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    const date = new Date(this.creationDate);
+
     if (
-      this.creationDate?.getTime() < new Date().getTime() &&
-      this.creationDate?.getTime() >= this.subDays(14).getTime()
+      date?.getTime() < new Date().getTime() &&
+      date?.getTime() >= this.subDays(14).getTime()
     ) {
       this.elementRef.nativeElement.style.borderColor = '#2cce2c';
     }
 
-    if (this.creationDate?.getTime() > new Date().getTime()) {
+    if (date?.getTime() > new Date().getTime()) {
       this.elementRef.nativeElement.style.borderColor = '#00b7ff';
     }
 

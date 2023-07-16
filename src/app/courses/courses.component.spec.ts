@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
@@ -11,7 +12,8 @@ import { FilterPipe } from '../pipes/filter.pipe';
 import { OrderByPipe } from '../pipes/order-by.pipe';
 import { DurationPipe } from '../pipes/duration.pipe';
 import { BorderColorDirective } from '../directives/border-color.directive';
-import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CoursesComponent', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
@@ -20,6 +22,11 @@ describe('CoursesComponent', () => {
   let fixture: ComponentFixture<CoursesComponent>;
   let coursesService: CoursesService;
 
+  const coursesServiceServiceMock = {
+    getList: jasmine.createSpy('getList').and.returnValue(of({})),
+    removeItem: jasmine.createSpy('removeItem').and.returnValue(of({})),
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -27,6 +34,7 @@ describe('CoursesComponent', () => {
         MatInputModule,
         MatIconModule,
         BrowserAnimationsModule,
+        HttpClientTestingModule,
       ],
       declarations: [
         CoursesComponent,
@@ -36,7 +44,10 @@ describe('CoursesComponent', () => {
         DurationPipe,
         BorderColorDirective,
       ],
-      providers: [CoursesService, { provide: Router, useValue: mockRouter }],
+      providers: [
+        { provide: CoursesService, useValue: coursesServiceServiceMock },
+        { provide: Router, useValue: mockRouter },
+      ],
     }).compileComponents();
   });
 
@@ -54,47 +65,44 @@ describe('CoursesComponent', () => {
 
   describe('loadMore', () => {
     it('console log should have been called', () => {
-      spyOn(console, 'log');
-
       component.loadMore();
+      expect(component.count).toBe(20);
 
-      expect(console.log).toHaveBeenCalledWith('load more');
+      expect(coursesService.getList).toHaveBeenCalledWith({
+        count: 20,
+        textFragment: '',
+      });
     });
   });
 
   describe('handleSearch', () => {
     it('console log should have been called', () => {
-      spyOn(console, 'log');
       component.search = 'test';
 
       component.handleSearch();
 
-      expect(console.log).toHaveBeenCalledWith('Search value =', 'test');
-    });
-    it('should rewrite filterBy value to search value', () => {
-      component.search = 'test';
-
-      component.handleSearch();
-
-      expect(component.filterBy).toBe(component.search);
+      expect(coursesService.getList).toHaveBeenCalledWith({
+        count: 10,
+        textFragment: 'test',
+      });
     });
   });
 
   describe('handleDelete', () => {
-    it('should call removeItem when user confirms', () => {
-      spyOn(coursesService, 'removeItem');
+    beforeEach(() => coursesServiceServiceMock.removeItem.calls.reset());
+
+    it('handleDelete should call removeItem when user confirms', () => {
       spyOn(window, 'confirm').and.returnValue(true);
+      component.handleDelete(1);
 
-      component.handleDelete('1');
-
-      expect(coursesService.removeItem).toHaveBeenCalledOnceWith('1');
+      expect(coursesService.removeItem).toHaveBeenCalledOnceWith(1);
+      expect(coursesService.getList).toHaveBeenCalled();
     });
 
     it('shouldn`t call removeItem when user declines', () => {
-      spyOn(coursesService, 'removeItem');
       spyOn(window, 'confirm').and.returnValue(false);
 
-      component.handleDelete('1');
+      component.handleDelete(1);
 
       expect(coursesService.removeItem).not.toHaveBeenCalled();
     });
@@ -102,9 +110,9 @@ describe('CoursesComponent', () => {
 
   describe('handleEdit', () => {
     it('should navigate to course page', () => {
-      component.handleEdit('2');
+      component.handleEdit(2);
 
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/courses', '2']);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/courses', 2]);
     });
   });
 });

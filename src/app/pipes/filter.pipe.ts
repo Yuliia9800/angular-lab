@@ -8,7 +8,7 @@ export class FilterPipe implements PipeTransform {
   transform(
     value: CourseItem[],
     filterString: string,
-    property: keyof Pick<CourseItem, 'title'>
+    property: keyof Pick<CourseItem, 'name'>
   ): CourseItem[] {
     if (value.length === 0 || !filterString) {
       return value;

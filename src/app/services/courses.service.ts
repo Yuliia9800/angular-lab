@@ -1,22 +1,37 @@
 import { Injectable } from '@angular/core';
-import { CourseItem, courses } from '../utils/public_api';
+import { CourseItem } from '../utils/public_api';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  courses = courses;
+  courses!: CourseItem[];
+  course!: CourseItem;
 
-  getList() {
-    return this.courses;
+  constructor(private http: HttpClient) {}
+
+  getList({ count = 10, sort = 'date', textFragment = '' } = {}): Observable<
+    CourseItem[]
+  > {
+    const url = `courses?start=0&count=${count}&sort=${sort}&textFragment=${textFragment}`;
+
+    return this.http.get<CourseItem[]>(url);
   }
 
   createCourse(course: CourseItem) {
-    this.courses.push(course);
+    return this.http.post<CourseItem>('courses', course);
   }
 
-  getItemById(id: string) {
-    return this.courses.find((course) => course.id === id);
+  getItemById(id: number) {
+    return this.http.get<CourseItem>(`courses/${id}`).pipe(
+      map((data) => {
+        this.course = data;
+
+        return data;
+      })
+    );
   }
 
   updateItem(course: CourseItem) {
@@ -25,9 +40,7 @@ export class CoursesService {
     this.courses[index] = course;
   }
 
-  removeItem(id: string) {
-    const index: number = this.courses.findIndex((course) => course.id === id);
-
-    this.courses.splice(index, 1);
+  removeItem(id: number) {
+    return this.http.delete(`courses/${id}`);
   }
 }
