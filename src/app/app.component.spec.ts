@@ -22,6 +22,7 @@ import { BorderColorDirective } from './directives/border-color.directive';
 import { LoginComponent } from './login/login.component';
 import { AddCourseComponent } from './courses/add-course/add-course.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -37,6 +38,7 @@ describe('AppComponent', () => {
         MatSelectModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule,
       ],
       declarations: [
         AppComponent,

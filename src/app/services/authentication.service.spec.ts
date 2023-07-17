@@ -1,13 +1,21 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 
 import { AuthenticationService } from './authentication.service';
 
 describe('AuthenticationService', () => {
   let service: AuthenticationService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    });
     service = TestBed.inject(AuthenticationService);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -16,10 +24,23 @@ describe('AuthenticationService', () => {
 
   describe('login', () => {
     it('should set user and token to local storage', () => {
+      const mockResponse = { token: 'token124' };
       spyOn(window.localStorage, 'setItem');
-      service.login({});
-      expect(localStorage.setItem).toHaveBeenCalledWith('user', '{}');
-      expect(localStorage.setItem).toHaveBeenCalledWith('token', '123');
+
+      service.login({}).subscribe((res) => {
+        expect(res.token).toEqual(mockResponse.token);
+        expect(localStorage.setItem).toHaveBeenCalledWith(
+          'token',
+          mockResponse.token
+        );
+      });
+
+      const req = httpTestingController.expectOne({
+        method: 'POST',
+        url: `auth/login`,
+      });
+
+      req.flush(mockResponse);
     });
   });
 
@@ -40,7 +61,27 @@ describe('AuthenticationService', () => {
 
   describe('getUserInfo', () => {
     it('should return user`s info', () => {
-      expect(service.getUserInfo()).toEqual(null);
+      const mockResponse = {
+        id: 1,
+        name: {
+          first: 'firstName',
+          last: 'lastName',
+        },
+      };
+
+      spyOn(window.localStorage, 'setItem');
+
+      service.getUserInfo().subscribe((res) => {
+        expect(res).toEqual(mockResponse as any);
+        expect(localStorage.setItem).toHaveBeenCalled();
+      });
+
+      const req = httpTestingController.expectOne({
+        method: 'POST',
+        url: `auth/userinfo`,
+      });
+
+      req.flush(mockResponse);
     });
   });
 });

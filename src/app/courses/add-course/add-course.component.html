@@ -2,15 +2,15 @@
   <div class="rectangle">
     <h2>New Course</h2>
     <form [formGroup]="newCourseForm" (ngSubmit)="submit()">
-      <label for="title"><b>Title:</b><span>* required</span></label>
+      <label for="name"><b>Title:</b><span>* required</span></label>
       <input
         class="field"
-        id="title"
+        id="name"
         type="text"
         placeholder="Text input"
         name="title"
         required
-        formControlName="title"
+        formControlName="name"
       />
 
       <label for="description">
@@ -26,16 +26,16 @@
         formControlName="description"
       ></textarea>
 
-      <label for="duration"><b>Duration:</b><span>* required</span></label>
+      <label for="length"><b>Duration:</b><span>* required</span></label>
       <input
         class="field duration"
-        id="duration"
+        id="length"
         type="number"
         min="0"
         placeholder="minutes"
         name="duration"
         required
-        formControlName="duration"
+        formControlName="length"
       />
 
       <label for="date"><b>Date:</b><span>* required</span></label>

@@ -1,8 +1,8 @@
-import { User } from './../utils/global.modules';
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
+import { User } from './../utils/global.modules';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private service: AuthenticationService, private router: Router) {}
+  user!: User;
 
-  user = {} as User;
+  constructor(private auth: AuthenticationService, private router: Router) {}
 
   profileForm = new FormGroup({
     email: new FormControl(''),
@@ -21,8 +21,8 @@ export class LoginComponent {
 
   userLogin(): void {
     const { password, email } = this.profileForm.value;
-    this.service.login({ email, password });
-    console.log('logged in successfully');
-    this.router.navigate(['/courses']);
+    this.auth.login({ email, password }).subscribe(() => {
+      this.router.navigate(['/courses']);
+    });
   }
 }

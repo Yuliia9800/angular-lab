@@ -1,17 +1,31 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { LoginResponse, User, UserResponse } from '../utils/public_api';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  user = localStorage.getItem('user');
-  token = localStorage.getItem('token');
+  user = JSON.parse(localStorage.getItem('user') || '{}') as User;
+  token = localStorage.getItem('token') || '';
+
+  constructor(private http: HttpClient) {}
 
   login(profile: any) {
-    localStorage.setItem('user', JSON.stringify(profile));
-    localStorage.setItem('token', '123');
+    return this.http
+      .post<LoginResponse>('auth/login', {
+        login: profile.email,
+        password: profile.password,
+      })
+      .pipe(
+        map((data) => {
+          this.token = data.token;
+          localStorage.setItem('token', this.token);
 
-    this.user = profile;
+          return data;
+        })
+      );
   }
 
   logout() {
@@ -24,6 +38,20 @@ export class AuthenticationService {
   }
 
   getUserInfo() {
-    return this.user;
+    return this.http
+      .post<UserResponse>('auth/userinfo', { token: this.token })
+      .pipe(
+        map((data) => {
+          this.user = {
+            id: data.id,
+            firstName: data.name.first,
+            lastName: data.name.last,
+          };
+
+          localStorage.setItem('user', JSON.stringify(this.user));
+
+          return data;
+        })
+      );
   }
 }

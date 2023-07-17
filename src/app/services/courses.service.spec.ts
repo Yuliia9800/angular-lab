@@ -1,44 +1,88 @@
-import { CourseItem } from './../utils/global.modules';
 import { TestBed } from '@angular/core/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 
 import { CoursesService } from './courses.service';
+import { CourseItem } from './../utils/global.modules';
 
 describe('CoursesService', () => {
   let service: CoursesService;
-  const courses = [{ id: '1', title: '1' }] as CourseItem[];
+  let httpTestingController: HttpTestingController;
+  const courses = [{ id: 1, name: '1' }] as CourseItem[];
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    });
     service = TestBed.inject(CoursesService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+
     service.courses = [...courses];
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
   describe('getList', () => {
     it('should return list of courses', () => {
-      expect(service.getList()).toEqual(courses);
+      const mockResponse: any[] = [];
+
+      service.getList().subscribe((res) => expect(res).toEqual(mockResponse));
+
+      const req = httpTestingController.expectOne({
+        method: 'Get',
+        url: `courses?start=0&count=10&sort=date&textFragment=`,
+      });
+
+      req.flush(mockResponse);
     });
   });
 
   describe('createCourse', () => {
     it('should add new course', () => {
-      const mockCourse = { id: '2' } as CourseItem;
-      service.createCourse(mockCourse);
-      expect(service.courses.length).toBe(2);
+      const mockCourse = { id: 2 } as CourseItem;
+      const mockResponse: any = [mockCourse];
+
+      service.createCourse(mockCourse).subscribe((res) => {
+        expect(res).toEqual(mockResponse);
+      });
+
+      const req = httpTestingController.expectOne({
+        method: 'Post',
+        url: `courses`,
+      });
+
+      expect(req.request.body).toEqual(mockCourse);
+
+      req.flush(mockResponse);
     });
   });
 
   describe('getItemById', () => {
     it('should find course by id', () => {
-      expect(service.getItemById('1')).toEqual(courses[0]);
+      const mockResponse: any = { id: 2 };
+
+      service.getItemById(2).subscribe((res) => {
+        expect(res).toEqual(mockResponse);
+      });
+
+      const req = httpTestingController.expectOne({
+        method: 'Get',
+        url: 'courses/2',
+      });
+
+      req.flush(mockResponse);
+
+      expect(service.course).toEqual(mockResponse);
     });
   });
 
   describe('updateItem', () => {
     it('should update existing course by id', () => {
-      const mockCourse = { id: '1', title: '3' } as CourseItem;
+      const mockCourse = { id: 1, name: '3' } as CourseItem;
       service.updateItem(mockCourse);
       expect(service.courses).toEqual([mockCourse]);
     });
@@ -46,8 +90,18 @@ describe('CoursesService', () => {
 
   describe('removeItem', () => {
     it('should remove course by id', () => {
-      service.removeItem('1');
-      expect(service.courses.length).toBe(0);
+      const mockResponse: any = {};
+
+      service.removeItem(2).subscribe((res) => {
+        expect(res).toEqual(mockResponse);
+      });
+
+      const req = httpTestingController.expectOne({
+        method: 'Delete',
+        url: 'courses/2',
+      });
+
+      req.flush(mockResponse);
     });
   });
 });

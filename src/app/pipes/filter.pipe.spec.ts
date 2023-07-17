@@ -5,23 +5,18 @@ describe('FilterPipe', () => {
   const pipe = new FilterPipe();
 
   it('transform should return original value if value length === 0 ', () => {
-    expect(pipe.transform([], 'test', 'title')).toEqual([]);
+    expect(pipe.transform([], 'test', 'name')).toEqual([]);
   });
 
   it('transform should return original value if filterString is empty', () => {
-    const mock = [{ title: 'title' }] as CourseItem[];
+    const mock = [{ name: 'name' }] as CourseItem[];
 
-    expect(pipe.transform(mock, '', 'title')).toEqual(mock);
+    expect(pipe.transform(mock, '', 'name')).toEqual(mock);
   });
 
   it('transform should return array depending on filterString', () => {
-    const mock = [
-      { title: 'title1' },
-      {
-        title: 'title2',
-      },
-    ] as CourseItem[];
+    const mock = [{ name: 'title1' }, { name: 'title2' }] as CourseItem[];
 
-    expect(pipe.transform(mock, 'Title1', 'title')).toEqual([mock[0]]);
+    expect(pipe.transform(mock, 'Title1', 'name')).toEqual([mock[0]]);
   });
 });

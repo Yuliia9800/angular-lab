@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseItem, courses } from '../utils/public_api';
-import { FilterPipe } from '../pipes/filter.pipe';
+import { CourseItem } from '../utils/public_api';
 import { CoursesService } from '../services/courses.service';
 import { Router } from '@angular/router';
 
@@ -8,40 +7,44 @@ import { Router } from '@angular/router';
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
-  providers: [FilterPipe],
 })
 export class CoursesComponent implements OnInit {
-  constructor(
-    private filter: FilterPipe,
-    private service: CoursesService,
-    private router: Router
-  ) {}
-
+  count = 10;
   search = '';
-  filterBy = '';
-  coursesData = [] as CourseItem[];
+  coursesData: CourseItem[] = [];
 
-  ngOnInit(): void {
-    this.coursesData = this.service.getList();
+  constructor(private service: CoursesService, private router: Router) {}
+
+  searchCall() {
+    this.service
+      .getList({ count: this.count, textFragment: this.search })
+      .subscribe((data) => {
+        this.coursesData = data;
+      });
+  }
+
+  ngOnInit() {
+    this.searchCall();
   }
 
   loadMore() {
-    console.log('load more');
+    this.count += 10;
+    this.searchCall();
   }
 
   handleSearch() {
-    console.log('Search value =', this.search);
-    this.filterBy = this.search;
-    this.coursesData = this.filter.transform(courses, this.search, 'title');
+    this.searchCall();
   }
 
-  handleDelete(id: string) {
+  handleDelete(id: number) {
     if (confirm('Do you really want to delete this course? Yes/No ')) {
-      this.service.removeItem(id);
+      this.service.removeItem(id).subscribe(() => {
+        this.searchCall();
+      });
     }
   }
 
-  handleEdit(id: string) {
+  handleEdit(id: number) {
     this.router.navigate([`/courses`, id]);
   }
 }
