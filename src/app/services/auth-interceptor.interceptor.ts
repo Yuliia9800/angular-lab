@@ -5,10 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+
 import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 

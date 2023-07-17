@@ -13,10 +13,10 @@ export class CoursesComponent implements OnInit {
   search = '';
   coursesData: CourseItem[] = [];
 
-  constructor(private service: CoursesService, private router: Router) {}
+  constructor(private coursesService: CoursesService, private router: Router) {}
 
   searchCall() {
-    this.service
+    this.coursesService
       .getList({ count: this.count, textFragment: this.search })
       .subscribe((data) => {
         this.coursesData = data;
@@ -38,7 +38,7 @@ export class CoursesComponent implements OnInit {
 
   handleDelete(id: number) {
     if (confirm('Do you really want to delete this course? Yes/No ')) {
-      this.service.removeItem(id).subscribe(() => {
+      this.coursesService.removeItem(id).subscribe(() => {
         this.searchCall();
       });
     }

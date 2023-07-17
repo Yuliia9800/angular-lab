@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from '../utils/public_api';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,21 @@ export class CoursesService {
   > {
     const url = `courses?start=0&count=${count}&sort=${sort}&textFragment=${textFragment}`;
 
-    return this.http.get<CourseItem[]>(url);
+    return this.http.get<CourseItem[]>(url).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(() => new Error(err));
+      })
+    );
   }
 
   createCourse(course: CourseItem) {
-    return this.http.post<CourseItem>('courses', course);
+    return this.http.post<CourseItem>('courses', course).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(() => new Error(err));
+      })
+    );
   }
 
   getItemById(id: number) {
@@ -30,6 +40,10 @@ export class CoursesService {
         this.course = data;
 
         return data;
+      }),
+      catchError((err) => {
+        console.error(err);
+        return throwError(() => new Error(err));
       })
     );
   }
@@ -41,6 +55,11 @@ export class CoursesService {
   }
 
   removeItem(id: number) {
-    return this.http.delete(`courses/${id}`);
+    return this.http.delete(`courses/${id}`).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(() => new Error(err));
+      })
+    );
   }
 }

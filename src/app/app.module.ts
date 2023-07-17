@@ -18,7 +18,6 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseItemComponent } from './courses/course-item/course-item.component';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
-import { FilterPipe } from './pipes/filter.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
 import { LoginComponent } from './login/login.component';
 import { AddCourseComponent } from './courses/add-course/add-course.component';
@@ -36,7 +35,6 @@ import { BaseUrlInterceptorInterceptor } from './services/base-url-interceptor.i
     CourseItemComponent,
     DurationPipe,
     OrderByPipe,
-    FilterPipe,
     BorderColorDirective,
     LoginComponent,
     AddCourseComponent,

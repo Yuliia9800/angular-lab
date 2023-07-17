@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginResponse, User, UserResponse } from '../utils/public_api';
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +24,10 @@ export class AuthenticationService {
           localStorage.setItem('token', this.token);
 
           return data;
+        }),
+        catchError((err) => {
+          console.error(err);
+          return throwError(() => new Error(err));
         })
       );
   }
@@ -51,6 +55,10 @@ export class AuthenticationService {
           localStorage.setItem('user', JSON.stringify(this.user));
 
           return data;
+        }),
+        catchError((err) => {
+          console.error(err);
+          return throwError(() => new Error(err));
         })
       );
   }

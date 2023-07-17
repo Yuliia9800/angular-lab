@@ -16,7 +16,6 @@ import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component
 import { FooterComponent } from './shared/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DurationPipe } from './pipes/duration.pipe';
-import { FilterPipe } from './pipes/filter.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
 import { LoginComponent } from './login/login.component';
@@ -49,7 +48,6 @@ describe('AppComponent', () => {
         CourseItemComponent,
         DurationPipe,
         OrderByPipe,
-        FilterPipe,
         BorderColorDirective,
         LoginComponent,
         AddCourseComponent,

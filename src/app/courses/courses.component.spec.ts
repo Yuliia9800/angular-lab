@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
-import { FilterPipe } from '../pipes/filter.pipe';
 import { OrderByPipe } from '../pipes/order-by.pipe';
 import { DurationPipe } from '../pipes/duration.pipe';
 import { BorderColorDirective } from '../directives/border-color.directive';
@@ -40,7 +39,6 @@ describe('CoursesComponent', () => {
         CoursesComponent,
         CourseItemComponent,
         OrderByPipe,
-        FilterPipe,
         DurationPipe,
         BorderColorDirective,
       ],
