@@ -3,10 +3,10 @@
     <mat-icon>play_circle_outline</mat-icon>
     <span>video course</span>
   </div>
-  <div *ngIf="isAuthenticated">
+  <div *ngIf="auth.isAuthenticated() | async">
     <button mat-button>
       <mat-icon>person</mat-icon>
-      User
+      {{ userName }}
     </button>
     <button mat-button (click)="logout()">
       <mat-icon>logout</mat-icon>

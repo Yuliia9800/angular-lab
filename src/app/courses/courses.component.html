@@ -1,11 +1,12 @@
 <div class="section">
   <div class="search">
     <mat-form-field appearance="outline">
-      <input matInput placeholder="Type to search" [(ngModel)]="search" />
+      <input
+        matInput
+        placeholder="Type to search"
+        (keyup)="handleSearch($event)"
+      />
     </mat-form-field>
-    <button mat-flat-button color="accent" (click)="handleSearch()">
-      Search
-    </button>
   </div>
   <a mat-flat-button color="primary" routerLink="/courses/new">
     <mat-icon class="material-icons-outlined">add_circle_outline</mat-icon>

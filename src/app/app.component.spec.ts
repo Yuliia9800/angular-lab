@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { AddCourseComponent } from './courses/add-course/add-course.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -52,6 +53,7 @@ describe('AppComponent', () => {
         LoginComponent,
         AddCourseComponent,
         PagenotfoundComponent,
+        SpinnerComponent,
       ],
     }).compileComponents()
   );

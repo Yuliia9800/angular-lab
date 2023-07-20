@@ -24,6 +24,8 @@ import { AddCourseComponent } from './courses/add-course/add-course.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthInterceptorInterceptor } from './services/auth-interceptor.interceptor';
 import { BaseUrlInterceptorInterceptor } from './services/base-url-interceptor.interceptor';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { SpinnerInterceptor } from './services/spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { BaseUrlInterceptorInterceptor } from './services/base-url-interceptor.i
     LoginComponent,
     AddCourseComponent,
     PagenotfoundComponent,
+    SpinnerComponent,
   ],
   imports: [
     HttpClientModule,
@@ -54,6 +57,11 @@ import { BaseUrlInterceptorInterceptor } from './services/base-url-interceptor.i
     ReactiveFormsModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorInterceptor,

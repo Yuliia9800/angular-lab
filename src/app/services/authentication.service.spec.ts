@@ -55,7 +55,7 @@ describe('AuthenticationService', () => {
 
   describe('isAuthenticated', () => {
     it('should return if user is authenticated', () => {
-      expect(service.isAuthenticated()).toBe(false);
+      expect(service.isAuthenticated().value).toBeFalsy();
     });
   });
 

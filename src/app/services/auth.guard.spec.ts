@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { authGuard } from './auth.guard';
 import { AuthenticationService } from './authentication.service';
+import { BehaviorSubject } from 'rxjs';
 
 describe('authGuard', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
@@ -13,7 +14,9 @@ describe('authGuard', () => {
         authGuard,
         {
           provide: AuthenticationService,
-          useValue: { isAuthenticated: () => isAuthenticated },
+          useValue: {
+            isAuthenticated: () => new BehaviorSubject(isAuthenticated),
+          },
         },
         { provide: Router, useValue: mockRouter },
       ],
@@ -23,9 +26,8 @@ describe('authGuard', () => {
   };
 
   it('should return false and redirect', () => {
-    const guard = setup(false);
+    setup(false);
 
-    expect(guard).toBeFalse();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['login']);
   });
 

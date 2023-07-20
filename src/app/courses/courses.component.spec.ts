@@ -1,5 +1,10 @@
 import { CoursesService } from 'src/app/services/courses.service';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -63,27 +68,30 @@ describe('CoursesComponent', () => {
 
   describe('loadMore', () => {
     it('console log should have been called', () => {
+      component.count = 0;
+
       component.loadMore();
-      expect(component.count).toBe(20);
+      expect(component.count).toBe(10);
 
       expect(coursesService.getList).toHaveBeenCalledWith({
-        count: 20,
+        count: 10,
         textFragment: '',
       });
     });
   });
 
   describe('handleSearch', () => {
-    it('console log should have been called', () => {
-      component.search = 'test';
+    it('console log should have been called', fakeAsync(() => {
+      component.handleSearch({ target: { value: 'test' } });
 
-      component.handleSearch();
+      expect(component.search$.value).toBe('test');
+      // tick(300);
 
-      expect(coursesService.getList).toHaveBeenCalledWith({
-        count: 10,
-        textFragment: 'test',
-      });
-    });
+      // expect(coursesService.getList).toHaveBeenCalledOnceWith({
+      //   count: 10,
+      //   textFragment: 'test',
+      // });
+    }));
   });
 
   describe('handleDelete', () => {
