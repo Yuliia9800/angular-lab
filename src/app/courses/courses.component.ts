@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CourseItem } from '../utils/public_api';
 import { CoursesService } from '../services/courses.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -10,35 +11,40 @@ import { Router } from '@angular/router';
 })
 export class CoursesComponent implements OnInit {
   count = 10;
-  search = '';
+  search$ = new BehaviorSubject<string>('');
   coursesData: CourseItem[] = [];
 
-  constructor(private service: CoursesService, private router: Router) {}
+  constructor(private coursesService: CoursesService, private router: Router) {}
 
   searchCall() {
-    this.service
-      .getList({ count: this.count, textFragment: this.search })
+    this.coursesService
+      .getList({ count: this.count, textFragment: this.search$.value })
       .subscribe((data) => {
         this.coursesData = data;
       });
   }
 
   ngOnInit() {
-    this.searchCall();
+    this.search$.pipe(debounceTime(300)).subscribe((value: any) => {
+      if (value.length >= 3 || !value.length) {
+        this.searchCall();
+      }
+    });
   }
 
   loadMore() {
     this.count += 10;
+
     this.searchCall();
   }
 
-  handleSearch() {
-    this.searchCall();
+  handleSearch(event: any) {
+    this.search$.next(event.target.value);
   }
 
   handleDelete(id: number) {
     if (confirm('Do you really want to delete this course? Yes/No ')) {
-      this.service.removeItem(id).subscribe(() => {
+      this.coursesService.removeItem(id).subscribe(() => {
         this.searchCall();
       });
     }

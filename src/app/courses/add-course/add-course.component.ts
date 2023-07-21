@@ -14,7 +14,7 @@ export class AddCourseComponent implements OnInit {
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute,
-    private service: CoursesService,
+    private coursesService: CoursesService,
     private datePipe: DatePipe
   ) {}
 
@@ -31,7 +31,12 @@ export class AddCourseComponent implements OnInit {
 
     const id = this.activateRoute.snapshot.params['id'];
 
-    this.service.getItemById(id).subscribe((data) => {
+    this.coursesService.getItemById(id).subscribe((data) => {
+      if (!data) {
+        this.router.navigate(['**']);
+        return;
+      }
+
       this.newCourseForm.setValue({
         name: data.name,
         description: data.description,
@@ -43,9 +48,11 @@ export class AddCourseComponent implements OnInit {
   }
 
   submit() {
-    this.service.createCourse(this.newCourseForm.value as any).subscribe(() => {
-      this.router.navigate(['/courses']);
-    });
+    this.coursesService
+      .createCourse(this.newCourseForm.value as any)
+      .subscribe(() => {
+        this.router.navigate(['/courses']);
+      });
   }
 
   cancel() {

@@ -5,10 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+
 import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 
@@ -20,7 +17,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const authToken = this.auth.token;
+    const authToken = this.auth.token$.value;
 
     const authReq = request.clone({
       headers: request.headers.set('Authorization', authToken),

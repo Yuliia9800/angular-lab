@@ -16,13 +16,13 @@ import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component
 import { FooterComponent } from './shared/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DurationPipe } from './pipes/duration.pipe';
-import { FilterPipe } from './pipes/filter.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
 import { LoginComponent } from './login/login.component';
 import { AddCourseComponent } from './courses/add-course/add-course.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -49,11 +49,11 @@ describe('AppComponent', () => {
         CourseItemComponent,
         DurationPipe,
         OrderByPipe,
-        FilterPipe,
         BorderColorDirective,
         LoginComponent,
         AddCourseComponent,
         PagenotfoundComponent,
+        SpinnerComponent,
       ],
     }).compileComponents()
   );
