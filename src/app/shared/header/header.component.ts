@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { AppState, selectToken, selectUserName } from 'src/app/store';
-import { getUserInfo, logout } from 'src/app/store/user/user.actions';
+
+import { AuthenticationService } from 'services/authentication.service';
+import { AppState, selectToken, selectUserName } from 'store';
+import { getUserInfo, logout } from 'store/user/user.actions';
 
 @Component({
   selector: 'app-header',

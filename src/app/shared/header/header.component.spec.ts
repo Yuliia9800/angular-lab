@@ -5,8 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HeaderComponent } from './header.component';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { logout } from 'src/app/store/user/user.actions';
+import { AuthenticationService } from 'services/authentication.service';
+import { logout } from 'store/user/user.actions';
 
 describe('HeaderComponent', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);

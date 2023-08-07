@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, selectCourse } from 'src/app/store';
+import { AppState, selectCourse } from 'store';
 import {
   createCourse,
   getCourseById,
   updateCourse,
-} from 'src/app/store/courses/courses.actions';
-import { CourseItem } from 'src/app/utils/global.modules';
+} from 'store/courses/courses.actions';
+import { CourseItem } from 'utils/global.modules';
 
 @Component({
   selector: 'app-add-course',

@@ -1,4 +1,4 @@
-import { User } from 'src/app/utils/public_api';
+import { User } from 'utils/public_api';
 import { createAction, props } from '@ngrx/store';
 
 export const login = createAction(

@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormControl } from '@angular/forms';
 
-import { AppState } from '../store';
-import { login } from '../store/user/user.actions';
-import { User } from './../utils/global.modules';
+import { login } from 'store/user/user.actions';
+import { User } from 'utils/global.modules';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,7 @@ import { User } from './../utils/global.modules';
 export class LoginComponent {
   user!: User;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   profileForm = new FormGroup({
     email: new FormControl(''),

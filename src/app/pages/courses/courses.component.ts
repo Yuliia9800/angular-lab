@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseItem } from '../utils/public_api';
-import { CoursesService } from '../services/courses.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { loadCourses } from '../store/courses/courses.actions';
-import { AppState, selectCourses } from '../store';
+
+import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
+import { CourseItem } from 'utils/public_api';
+import { CoursesService } from 'services/courses.service';
+import { loadCourses } from 'store/courses/courses.actions';
+import { AppState, selectCourses } from 'store';
 
 @Component({
   selector: 'app-courses',

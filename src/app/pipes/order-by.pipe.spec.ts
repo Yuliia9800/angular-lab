@@ -1,4 +1,4 @@
-import { CourseItem } from '../utils/public_api';
+import { CourseItem } from 'utils/public_api';
 import { OrderByPipe } from './order-by.pipe';
 
 describe('OrderByPipe', () => {

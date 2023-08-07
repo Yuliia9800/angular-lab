@@ -1,25 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-
-import { SpinnerInterceptor } from './spinner.interceptor';
-import { SpinnerService } from './spinner.service';
 import { HttpRequest } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 
-describe('SpinnerInterceptor', () => {
-  let spinnerService: SpinnerService;
-  let interceptor: SpinnerInterceptor;
+import { AuthInterceptorInterceptor } from './auth-interceptor.interceptor';
+
+describe('AuthInterceptorInterceptor', () => {
+  let interceptor: AuthInterceptorInterceptor;
 
   beforeEach(() =>
     TestBed.configureTestingModule({
-      providers: [SpinnerInterceptor, SpinnerService],
+      providers: [AuthInterceptorInterceptor],
       imports: [HttpClientTestingModule],
     })
   );
 
   beforeEach(() => {
-    spinnerService = TestBed.inject(SpinnerService);
-    interceptor = TestBed.inject(SpinnerInterceptor);
+    interceptor = TestBed.inject(AuthInterceptorInterceptor);
   });
 
   it('should be created', () => {
@@ -27,13 +24,16 @@ describe('SpinnerInterceptor', () => {
   });
 
   it('should add Authorization to request headers', (done) => {
-    spyOn(spinnerService, 'setLoading');
     const mockReq = new HttpRequest('GET', '/test');
-    const next: any = { handle: () => of({ status: 'OK' }) };
+    const requestCloneSpy = spyOn(mockReq, 'clone');
+    const next: any = {
+      handle: () => of({ status: 'OK' }),
+    };
 
     interceptor.intercept(mockReq, next).subscribe(() => {
-      expect(spinnerService.setLoading).toHaveBeenCalledWith(true);
-
+      expect(requestCloneSpy).toHaveBeenCalledWith({
+        headers: mockReq.headers.set('Authorization', ''),
+      });
       done();
     });
   });

@@ -3,10 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { of } from 'rxjs';
 
 import { LoginComponent } from './login.component';
-import { login } from '../store/user/user.actions';
+import { login } from 'store/user/user.actions';
 
 describe('LoginComponent', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);

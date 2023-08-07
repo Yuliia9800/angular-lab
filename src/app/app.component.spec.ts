@@ -7,23 +7,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { AppComponent } from './app.component';
+import { CourseItemComponent } from './pages/courses/course-item/course-item.component';
+import { CoursesComponent } from './pages/courses/courses.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AddCourseComponent } from './pages/courses/add-course/add-course.component';
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { CourseItemComponent } from './courses/course-item/course-item.component';
-import { CoursesComponent } from './courses/courses.component';
 import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
-import { LoginComponent } from './login/login.component';
-import { AddCourseComponent } from './courses/add-course/add-course.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AppComponent', () => {
   beforeEach(() =>

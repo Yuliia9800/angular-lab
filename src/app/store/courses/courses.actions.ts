@@ -1,4 +1,4 @@
-import { CourseItem } from 'src/app/utils/public_api';
+import { CourseItem } from 'utils/public_api';
 import { createAction, props } from '@ngrx/store';
 
 export const loadCourses = createAction(

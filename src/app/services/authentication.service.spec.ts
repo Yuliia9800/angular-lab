@@ -3,9 +3,9 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from './authentication.service';
-import { Router } from '@angular/router';
 
 describe('AuthenticationService', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);

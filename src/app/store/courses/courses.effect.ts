@@ -1,7 +1,9 @@
 import { inject } from '@angular/core';
 import { EMPTY, catchError, exhaustMap, map, tap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Router } from '@angular/router';
 
+import { CoursesService } from 'services/courses.service';
 import {
   createCourse,
   deleteCourse,
@@ -11,8 +13,6 @@ import {
   setCourses,
   updateCourse,
 } from './courses.actions';
-import { CoursesService } from 'src/app/services/courses.service';
-import { Router } from '@angular/router';
 
 export const loadCoursesEffect = createEffect(
   (actions$ = inject(Actions), coursesService = inject(CoursesService)) => {

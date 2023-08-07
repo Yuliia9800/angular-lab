@@ -1,7 +1,8 @@
 import { inject } from '@angular/core';
-import { EMPTY, catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { EMPTY, catchError, exhaustMap, map, tap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
+import { AuthenticationService } from 'services/authentication.service';
 import {
   getUserInfo,
   login,
@@ -9,7 +10,6 @@ import {
   logout,
   setUserInfo,
 } from './user.actions';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 
 export const loginEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthenticationService)) => {

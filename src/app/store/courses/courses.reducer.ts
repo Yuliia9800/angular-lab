@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { CourseItem } from 'src/app/utils/public_api';
+import { CourseItem } from 'utils/public_api';
 
 import { setCourses, setCourse } from './courses.actions';
 

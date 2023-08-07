@@ -1,6 +1,6 @@
 /* eslint-disable @ngrx/on-function-explicit-return-type */
 import { createReducer, on } from '@ngrx/store';
-import { User } from 'src/app/utils/public_api';
+import { User } from 'utils/public_api';
 
 import { logout, setUserInfo, setToken } from './user.actions';
 

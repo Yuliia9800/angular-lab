@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { CourseItem } from '../utils/public_api';
+import { CourseItem } from 'utils/public_api';
 
 @Injectable({
   providedIn: 'root',

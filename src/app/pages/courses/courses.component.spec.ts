@@ -1,5 +1,5 @@
-import { courses } from 'src/app/utils/public_api';
-import { CoursesService } from 'src/app/services/courses.service';
+import { courses } from 'utils/public_api';
+import { CoursesService } from 'services/courses.service';
 import {
   ComponentFixture,
   TestBed,
@@ -14,13 +14,13 @@ import { Router } from '@angular/router';
 
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
-import { OrderByPipe } from '../pipes/order-by.pipe';
-import { DurationPipe } from '../pipes/duration.pipe';
-import { BorderColorDirective } from '../directives/border-color.directive';
+import { OrderByPipe } from '../../pipes/order-by.pipe';
+import { DurationPipe } from '../../pipes/duration.pipe';
+import { BorderColorDirective } from '../../directives/border-color.directive';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { loadCourses } from '../store/courses/courses.actions';
+import { loadCourses } from '../../store/courses/courses.actions';
 
 describe('CoursesComponent', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);

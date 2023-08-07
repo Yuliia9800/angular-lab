@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { courses } from 'src/app/utils/public_api';
+import { courses } from 'utils/public_api';
 
 @Component({
   selector: 'app-breadcrumbs',

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginResponse, UserResponse } from '../utils/public_api';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { Router } from '@angular/router';
+
+import { LoginResponse, UserResponse } from 'utils/public_api';
 
 @Injectable({
   providedIn: 'root',

@@ -4,8 +4,8 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 
+import { CourseItem } from 'utils/global.modules';
 import { CoursesService } from './courses.service';
-import { CourseItem } from './../utils/global.modules';
 
 describe('CoursesService', () => {
   let service: CoursesService;
