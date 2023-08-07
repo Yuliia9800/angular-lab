@@ -23,6 +23,7 @@ import { AddCourseComponent } from './courses/add-course/add-course.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -55,6 +56,7 @@ describe('AppComponent', () => {
         PagenotfoundComponent,
         SpinnerComponent,
       ],
+      providers: [provideMockStore({})],
     }).compileComponents()
   );
 

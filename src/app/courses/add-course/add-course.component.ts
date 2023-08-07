@@ -2,7 +2,14 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoursesService } from 'src/app/services/courses.service';
+import { Store } from '@ngrx/store';
+import { AppState, selectCourse } from 'src/app/store';
+import {
+  createCourse,
+  getCourseById,
+  updateCourse,
+} from 'src/app/store/courses/courses.actions';
+import { CourseItem } from 'src/app/utils/global.modules';
 
 @Component({
   selector: 'app-add-course',
@@ -14,9 +21,11 @@ export class AddCourseComponent implements OnInit {
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute,
-    private coursesService: CoursesService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private store: Store<AppState>
   ) {}
+
+  courseId!: number;
 
   newCourseForm = new FormGroup({
     name: new FormControl(''),
@@ -29,30 +38,32 @@ export class AddCourseComponent implements OnInit {
   ngOnInit() {
     if (this.router.url.includes('new')) return;
 
-    const id = this.activateRoute.snapshot.params['id'];
+    this.courseId = this.activateRoute.snapshot.params['id'];
 
-    this.coursesService.getItemById(id).subscribe((data) => {
-      if (!data) {
-        this.router.navigate(['**']);
-        return;
-      }
-
-      this.newCourseForm.setValue({
-        name: data.name,
-        description: data.description,
-        length: data.length,
-        date: this.datePipe.transform(data.date, 'yyyy-MM-dd'),
-        authors: data.authors,
-      });
+    this.store.select(selectCourse).subscribe((course) => {
+      if (course)
+        this.newCourseForm.setValue({
+          name: course.name,
+          description: course.description,
+          length: course.length,
+          date: this.datePipe.transform(course.date, 'yyyy-MM-dd'),
+          authors: course.authors,
+        });
     });
+
+    this.store.dispatch(getCourseById({ id: this.courseId }));
   }
 
   submit() {
-    this.coursesService
-      .createCourse(this.newCourseForm.value as any)
-      .subscribe(() => {
-        this.router.navigate(['/courses']);
-      });
+    const course = this.newCourseForm.value as CourseItem;
+
+    if (this.courseId) {
+      this.store.dispatch(updateCourse({ id: this.courseId, course }));
+
+      return;
+    }
+
+    this.store.dispatch(createCourse({ course }));
   }
 
   cancel() {

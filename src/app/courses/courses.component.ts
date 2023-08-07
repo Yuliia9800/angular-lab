@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CourseItem } from '../utils/public_api';
 import { CoursesService } from '../services/courses.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject, debounceTime } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { loadCourses } from '../store/courses/courses.actions';
+import { AppState, selectCourses } from '../store';
 
 @Component({
   selector: 'app-courses',
@@ -12,16 +15,18 @@ import { BehaviorSubject, debounceTime } from 'rxjs';
 export class CoursesComponent implements OnInit {
   count = 10;
   search$ = new BehaviorSubject<string>('');
-  coursesData: CourseItem[] = [];
+  courses$: Observable<CourseItem[]> = this.store.select(selectCourses);
 
-  constructor(private coursesService: CoursesService, private router: Router) {}
+  constructor(
+    private coursesService: CoursesService,
+    private router: Router,
+    private store: Store<AppState>
+  ) {}
 
   searchCall() {
-    this.coursesService
-      .getList({ count: this.count, textFragment: this.search$.value })
-      .subscribe((data) => {
-        this.coursesData = data;
-      });
+    this.store.dispatch(
+      loadCourses({ count: this.count, textFragment: this.search$.value })
+    );
   }
 
   ngOnInit() {

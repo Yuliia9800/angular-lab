@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+
+import { AppState } from '../store';
+import { login } from '../store/user/user.actions';
 import { User } from './../utils/global.modules';
 
 @Component({
@@ -12,7 +14,7 @@ import { User } from './../utils/global.modules';
 export class LoginComponent {
   user!: User;
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  constructor(private store: Store<AppState>) {}
 
   profileForm = new FormGroup({
     email: new FormControl(''),
@@ -20,9 +22,9 @@ export class LoginComponent {
   });
 
   userLogin(): void {
-    const { password, email } = this.profileForm.value;
-    this.auth.login({ email, password }).subscribe(() => {
-      this.router.navigate(['/courses']);
-    });
+    const email = this.profileForm.value.email as string;
+    const password = this.profileForm.value.password as string;
+
+    this.store.dispatch(login({ password, email }));
   }
 }

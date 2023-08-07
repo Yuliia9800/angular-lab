@@ -1,3 +1,4 @@
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +29,11 @@ import { AuthInterceptorInterceptor } from './services/auth-interceptor.intercep
 import { BaseUrlInterceptorInterceptor } from './services/base-url-interceptor.interceptor';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { SpinnerInterceptor } from './services/spinner.interceptor';
+
+import { userReducer } from './store/user/user.reducer';
+import * as userEffects from './store/user/user.effect';
+import { coursesReducer } from './store/courses/courses.reducer';
+import * as coursesEffects from './store/courses/courses.effect';
 
 @NgModule({
   declarations: [
@@ -55,6 +63,18 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forRoot(
+      {
+        courses: coursesReducer,
+        user: userReducer,
+      },
+      {}
+    ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
+
+    EffectsModule.forRoot([coursesEffects, userEffects]),
   ],
   providers: [
     {
