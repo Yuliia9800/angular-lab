@@ -25,10 +25,10 @@ import { BorderColorDirective } from './directives/border-color.directive';
 import { LoginComponent } from './pages/login/login.component';
 import { AddCourseComponent } from './pages/courses/add-course/add-course.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
-import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.interceptor';
-import { BaseUrlInterceptorInterceptor } from './interceptors/base-url-interceptor.interceptor';
+import { AuthInterceptorInterceptor } from './services/auth-interceptor.interceptor';
+import { BaseUrlInterceptorInterceptor } from './services/base-url-interceptor.interceptor';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
+import { SpinnerInterceptor } from './services/spinner.interceptor';
 
 import { userReducer } from './store/user/user.reducer';
 import * as userEffects from './store/user/user.effect';

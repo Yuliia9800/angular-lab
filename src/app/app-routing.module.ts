@@ -5,7 +5,7 @@ import { CoursesComponent } from 'pages/courses/courses.component';
 import { AddCourseComponent } from 'pages/courses/add-course/add-course.component';
 import { PagenotfoundComponent } from 'pages/pagenotfound/pagenotfound.component';
 import { LoginComponent } from 'pages/login/login.component';
-import { authGuard } from 'guards/auth.guard';
+import { authGuard } from 'services/auth.guard';
 
 const routes: Routes = [
   {
