@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
 import { CourseItem } from 'utils/public_api';
 import { CoursesService } from 'services/courses.service';
-import { loadCourses } from 'store/courses/courses.actions';
+import { loadCourses, setCourseId } from 'store/courses/courses.actions';
 import { AppState, selectCourses } from 'store';
 
 @Component({
@@ -57,6 +57,7 @@ export class CoursesComponent implements OnInit {
   }
 
   handleEdit(id: number) {
+    this.store.dispatch(setCourseId({ id }));
     this.router.navigate([`/courses`, id]);
   }
 }

@@ -6,11 +6,6 @@ export const login = createAction(
   props<{ email: string | null; password: string | null }>()
 );
 
-export const setToken = createAction(
-  '[User] Set Token',
-  props<{ token: string }>()
-);
-
 export const logout = createAction('[User] Logout');
 
 export const getUserInfo = createAction('[User] Get User Info');

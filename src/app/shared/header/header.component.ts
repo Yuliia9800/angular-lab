@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AuthenticationService } from 'services/authentication.service';
-import { AppState, selectToken, selectUserName } from 'store';
+import { AppState, selectUserName } from 'store';
 import { getUserInfo, logout } from 'store/user/user.actions';
 
 @Component({
@@ -22,11 +22,9 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.select(selectToken).subscribe((token) => {
-      if (token) {
-        this.store.dispatch(getUserInfo());
-      }
-    });
+    if (this.auth.token$.value) {
+      this.store.dispatch(getUserInfo());
+    }
   }
 
   logout() {

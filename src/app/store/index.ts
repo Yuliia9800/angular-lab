@@ -24,6 +24,5 @@ export const selectCourseName = createSelector(
   (state) => state.course?.name
 );
 
-export const selectToken = (state: AppState) => state.user.token;
 export const selectUserName = (state: AppState) =>
   state.user.user?.firstName || '';

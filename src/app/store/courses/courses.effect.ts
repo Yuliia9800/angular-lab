@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
-import { EMPTY, catchError, exhaustMap, map, tap } from 'rxjs';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { EMPTY, catchError, switchMap, map, tap, filter } from 'rxjs';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 
 import { CoursesService } from 'services/courses.service';
@@ -10,15 +10,18 @@ import {
   getCourseById,
   loadCourses,
   setCourse,
+  setCourseId,
   setCourses,
   updateCourse,
 } from './courses.actions';
+import { Store } from '@ngrx/store';
+import { selectCourses } from 'store';
 
 export const loadCoursesEffect = createEffect(
   (actions$ = inject(Actions), coursesService = inject(CoursesService)) => {
     return actions$.pipe(
       ofType(loadCourses.type),
-      exhaustMap((payload) =>
+      switchMap((payload) =>
         coursesService.getList(payload).pipe(
           map((courses) => setCourses({ courses })),
           catchError((error) => {
@@ -40,8 +43,8 @@ export const getCourseByIdEffect = createEffect(
   ) => {
     return actions$.pipe(
       ofType(getCourseById.type),
-      exhaustMap((payload) =>
-        coursesService.getItemById(payload.id).pipe(
+      switchMap(({ id }) =>
+        coursesService.getItemById(id).pipe(
           map((course) => setCourse({ course })),
           catchError((error) => {
             router.navigate(['courses']);
@@ -64,7 +67,7 @@ export const createCourseEffect = createEffect(
   ) => {
     return actions$.pipe(
       ofType(createCourse.type),
-      exhaustMap((payload) =>
+      switchMap((payload) =>
         coursesService.createCourse(payload).pipe(
           tap(() => {
             router.navigate(['courses']);
@@ -88,7 +91,7 @@ export const updateCourseEffect = createEffect(
   ) => {
     return actions$.pipe(
       ofType(updateCourse.type),
-      exhaustMap((payload) =>
+      switchMap((payload) =>
         coursesService.updateItem(payload.id, payload.course).pipe(
           tap(() => {
             router.navigate(['courses']);
@@ -108,7 +111,7 @@ export const deleteCourseEffect = createEffect(
   (actions$ = inject(Actions), coursesService = inject(CoursesService)) => {
     return actions$.pipe(
       ofType(deleteCourse.type),
-      exhaustMap((payload) =>
+      switchMap((payload) =>
         coursesService.removeItem(payload).pipe(
           catchError((error) => {
             console.error(error);
@@ -116,6 +119,24 @@ export const deleteCourseEffect = createEffect(
           })
         )
       )
+    );
+  },
+  { functional: true, dispatch: false }
+);
+
+export const setCourseIdEffect = createEffect(
+  (actions$ = inject(Actions), store = inject(Store)) => {
+    return actions$.pipe(
+      ofType(setCourseId.type),
+      filter(({ id }) => Boolean(id)),
+      concatLatestFrom(() => store.select(selectCourses)),
+      map(([{ id }, course]) => {
+        const selectedCourse = course.find((course) => course.id === id);
+
+        if (selectedCourse) {
+          store.dispatch(setCourse({ course: selectedCourse }));
+        }
+      })
     );
   },
   { functional: true, dispatch: false }

@@ -20,7 +20,7 @@ import { BorderColorDirective } from '../../directives/border-color.directive';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { loadCourses } from '../../store/courses/courses.actions';
+import { loadCourses, setCourseId } from '../../store/courses/courses.actions';
 
 describe('CoursesComponent', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
@@ -127,6 +127,7 @@ describe('CoursesComponent', () => {
     it('should navigate to course page', () => {
       component.handleEdit(2);
 
+      expect(store.dispatch).toHaveBeenCalledWith(setCourseId({ id: 2 }));
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/courses', 2]);
     });
   });

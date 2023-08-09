@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { AddCourseComponent } from './add-course.component';
+import { resetCourseId } from 'store/courses/courses.actions';
 
 describe('AddCourseComponent', () => {
   let store: MockStore;
@@ -71,6 +72,8 @@ describe('AddCourseComponent', () => {
   describe('cancel', () => {
     it('should navigate to courses page', () => {
       component.cancel();
+
+      expect(store.dispatch).toHaveBeenCalledWith(resetCourseId());
 
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/courses']);
     });

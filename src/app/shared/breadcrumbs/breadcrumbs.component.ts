@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { AppState, selectCourseName } from 'store';
+import { AppState, selectCourses } from 'store';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -11,8 +11,7 @@ import { AppState, selectCourseName } from 'store';
 })
 export class BreadcrumbsComponent implements OnInit {
   breadcrumbList: Array<{ name: string; path: string }> = [];
-  $courseName = this.store.select(selectCourseName);
-  courseName = null;
+  $courses = this.store.select(selectCourses);
 
   constructor(private router: Router, private store: Store<AppState>) {}
 
@@ -42,11 +41,12 @@ export class BreadcrumbsComponent implements OnInit {
           } else if (router === 'new') {
             name = '/ New';
           } else {
-            // this didn't work i need help
-            this.$courseName.subscribe((name: any) => {
-              this.courseName = name;
+            this.$courses.subscribe((courses) => {
+              const course = courses.find(
+                (course) => course.id === Number(router)
+              );
 
-              name = '/ ' + name;
+              name = '/ ' + course?.name;
             });
           }
 

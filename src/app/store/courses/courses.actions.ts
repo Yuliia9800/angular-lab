@@ -16,6 +16,13 @@ export const setCourse = createAction(
   props<{ course: CourseItem }>()
 );
 
+export const setCourseId = createAction(
+  '[Courses] Set Course ID',
+  props<{ id: number }>()
+);
+
+export const resetCourseId = createAction('[Courses] Reset Course ID');
+
 export const createCourse = createAction(
   '[Courses] Create Course',
   props<{ course: CourseItem }>()
@@ -32,6 +39,6 @@ export const deleteCourse = createAction(
 );
 
 export const getCourseById = createAction(
-  '[Courses] Get Course By If',
+  '[Courses] Get Course By Id',
   props<{ id: number }>()
 );
