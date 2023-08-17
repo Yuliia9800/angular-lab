@@ -4,13 +4,12 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 
+import { CourseItem } from 'utils/global.modules';
 import { CoursesService } from './courses.service';
-import { CourseItem } from './../utils/global.modules';
 
 describe('CoursesService', () => {
   let service: CoursesService;
   let httpTestingController: HttpTestingController;
-  const courses = [{ id: 1, name: '1' }] as CourseItem[];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,8 +17,6 @@ describe('CoursesService', () => {
     });
     service = TestBed.inject(CoursesService);
     httpTestingController = TestBed.inject(HttpTestingController);
-
-    service.courses = [...courses];
   });
 
   it('should be created', () => {
@@ -75,16 +72,6 @@ describe('CoursesService', () => {
       });
 
       req.flush(mockResponse);
-
-      expect(service.course).toEqual(mockResponse);
-    });
-  });
-
-  describe('updateItem', () => {
-    it('should update existing course by id', () => {
-      const mockCourse = { id: 1, name: '3' } as CourseItem;
-      service.updateItem(mockCourse);
-      expect(service.courses).toEqual([mockCourse]);
     });
   });
 

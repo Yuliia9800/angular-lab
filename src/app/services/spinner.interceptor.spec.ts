@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-
-import { SpinnerInterceptor } from './spinner.interceptor';
-import { SpinnerService } from './spinner.service';
 import { HttpRequest } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
+
+import { SpinnerService } from 'services/spinner.service';
+import { SpinnerInterceptor } from './spinner.interceptor';
 
 describe('SpinnerInterceptor', () => {
   let spinnerService: SpinnerService;

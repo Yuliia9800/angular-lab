@@ -1,4 +1,5 @@
-import { CoursesService } from 'src/app/services/courses.service';
+import { courses } from 'utils/public_api';
+import { CoursesService } from 'services/courses.service';
 import {
   ComponentFixture,
   TestBed,
@@ -13,11 +14,13 @@ import { Router } from '@angular/router';
 
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
-import { OrderByPipe } from '../pipes/order-by.pipe';
-import { DurationPipe } from '../pipes/duration.pipe';
-import { BorderColorDirective } from '../directives/border-color.directive';
+import { OrderByPipe } from '../../pipes/order-by.pipe';
+import { DurationPipe } from '../../pipes/duration.pipe';
+import { BorderColorDirective } from '../../directives/border-color.directive';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { loadCourses, setCourseId } from '../../store/courses/courses.actions';
 
 describe('CoursesComponent', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
@@ -25,6 +28,7 @@ describe('CoursesComponent', () => {
   let component: CoursesComponent;
   let fixture: ComponentFixture<CoursesComponent>;
   let coursesService: CoursesService;
+  let store: MockStore;
 
   const coursesServiceServiceMock = {
     getList: jasmine.createSpy('getList').and.returnValue(of({})),
@@ -50,6 +54,13 @@ describe('CoursesComponent', () => {
       providers: [
         { provide: CoursesService, useValue: coursesServiceServiceMock },
         { provide: Router, useValue: mockRouter },
+        provideMockStore({
+          initialState: {
+            courses: {
+              courses: [],
+            },
+          },
+        }),
       ],
     }).compileComponents();
   });
@@ -58,6 +69,9 @@ describe('CoursesComponent', () => {
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
     coursesService = TestBed.inject(CoursesService);
+    store = TestBed.inject(MockStore);
+
+    spyOn(store, 'dispatch').and.callThrough();
 
     fixture.detectChanges();
   });
@@ -73,10 +87,9 @@ describe('CoursesComponent', () => {
       component.loadMore();
       expect(component.count).toBe(10);
 
-      expect(coursesService.getList).toHaveBeenCalledWith({
-        count: 10,
-        textFragment: '',
-      });
+      expect(store.dispatch).toHaveBeenCalledWith(
+        loadCourses({ count: 10, textFragment: '' })
+      );
     });
   });
 
@@ -85,12 +98,6 @@ describe('CoursesComponent', () => {
       component.handleSearch({ target: { value: 'test' } });
 
       expect(component.search$.value).toBe('test');
-      // tick(300);
-
-      // expect(coursesService.getList).toHaveBeenCalledOnceWith({
-      //   count: 10,
-      //   textFragment: 'test',
-      // });
     }));
   });
 
@@ -102,7 +109,9 @@ describe('CoursesComponent', () => {
       component.handleDelete(1);
 
       expect(coursesService.removeItem).toHaveBeenCalledOnceWith(1);
-      expect(coursesService.getList).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith(
+        loadCourses({ count: 10, textFragment: '' })
+      );
     });
 
     it('shouldn`t call removeItem when user declines', () => {
@@ -118,6 +127,7 @@ describe('CoursesComponent', () => {
     it('should navigate to course page', () => {
       component.handleEdit(2);
 
+      expect(store.dispatch).toHaveBeenCalledWith(setCourseId({ id: 2 }));
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/courses', 2]);
     });
   });

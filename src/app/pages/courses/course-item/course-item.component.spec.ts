@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
-
-import { CourseItemComponent } from './course-item.component';
-import { CourseItem } from 'src/app/utils/public_api';
-import { first } from 'rxjs';
-import { DurationPipe } from 'src/app/pipes/duration.pipe';
-import { BorderColorDirective } from 'src/app/directives/border-color.directive';
-import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { first } from 'rxjs';
+
+import { CourseItem } from 'utils/public_api';
+import { DurationPipe } from 'pipes/duration.pipe';
+import { BorderColorDirective } from 'directives/border-color.directive';
+import { CourseItemComponent } from './course-item.component';
 
 describe('CourseItemComponent', () => {
   const course: CourseItem = {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { courses } from 'src/app/utils/public_api';
+import { Store } from '@ngrx/store';
+
+import { AppState, selectCourses } from 'store';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -9,8 +11,9 @@ import { courses } from 'src/app/utils/public_api';
 })
 export class BreadcrumbsComponent implements OnInit {
   breadcrumbList: Array<{ name: string; path: string }> = [];
+  $courses = this.store.select(selectCourses);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.listenRouting();
@@ -38,7 +41,13 @@ export class BreadcrumbsComponent implements OnInit {
           } else if (router === 'new') {
             name = '/ New';
           } else {
-            name = '/ ' + courses[Number(router)]?.name;
+            this.$courses.subscribe((courses) => {
+              const course = courses.find(
+                (course) => course.id === Number(router)
+              );
+
+              name = '/ ' + course?.name;
+            });
           }
 
           this.breadcrumbList.push({ name, path });

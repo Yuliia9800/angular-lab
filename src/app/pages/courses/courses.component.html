@@ -13,9 +13,9 @@
     Add course
   </a>
 
-  <div class="courses" *ngIf="coursesData.length > 0; else elseBlock">
+  <div class="courses" *ngIf="(courses$ | async)!.length > 0; else elseBlock">
     <app-course-item
-      *ngFor="let course of coursesData"
+      *ngFor="let course of courses$ | async"
       (delete)="handleDelete($event)"
       (edit)="handleEdit($event)"
       [course]="course"

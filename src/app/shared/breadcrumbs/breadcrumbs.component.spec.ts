@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BreadcrumbsComponent } from './breadcrumbs.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('BreadcrumbsComponent', () => {
   let component: BreadcrumbsComponent;
@@ -8,7 +9,8 @@ describe('BreadcrumbsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BreadcrumbsComponent]
+      declarations: [BreadcrumbsComponent],
+      providers: [provideMockStore({})],
     });
     fixture = TestBed.createComponent(BreadcrumbsComponent);
     component = fixture.componentInstance;

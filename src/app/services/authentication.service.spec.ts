@@ -3,16 +3,19 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from './authentication.service';
 
 describe('AuthenticationService', () => {
+  const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
   let service: AuthenticationService;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
+      providers: [{ provide: Router, useValue: mockRouter }],
     });
     service = TestBed.inject(AuthenticationService);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -23,16 +26,13 @@ describe('AuthenticationService', () => {
   });
 
   describe('login', () => {
-    it('should set user and token to local storage', () => {
+    it('should navigate to /courses', () => {
       const mockResponse = { token: 'token124' };
       spyOn(window.localStorage, 'setItem');
 
       service.login({}).subscribe((res) => {
         expect(res.token).toEqual(mockResponse.token);
-        expect(localStorage.setItem).toHaveBeenCalledWith(
-          'token',
-          mockResponse.token
-        );
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/courses']);
       });
 
       const req = httpTestingController.expectOne({
@@ -56,32 +56,6 @@ describe('AuthenticationService', () => {
   describe('isAuthenticated', () => {
     it('should return if user is authenticated', () => {
       expect(service.isAuthenticated().value).toBeFalsy();
-    });
-  });
-
-  describe('getUserInfo', () => {
-    it('should return user`s info', () => {
-      const mockResponse = {
-        id: 1,
-        name: {
-          first: 'firstName',
-          last: 'lastName',
-        },
-      };
-
-      spyOn(window.localStorage, 'setItem');
-
-      service.getUserInfo().subscribe((res) => {
-        expect(res).toEqual(mockResponse as any);
-        expect(localStorage.setItem).toHaveBeenCalled();
-      });
-
-      const req = httpTestingController.expectOne({
-        method: 'POST',
-        url: `auth/userinfo`,
-      });
-
-      req.flush(mockResponse);
     });
   });
 });

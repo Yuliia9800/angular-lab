@@ -2,23 +2,25 @@ import { Router } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HeaderComponent } from './header.component';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'services/authentication.service';
+import { logout } from 'store/user/user.actions';
 
 describe('HeaderComponent', () => {
   const mockRouter = jasmine.createSpyObj<Router>(['navigate']);
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let authService: AuthenticationService;
+  let store: MockStore;
 
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [MatToolbarModule, MatIconModule, HttpClientTestingModule],
       declarations: [HeaderComponent],
       providers: [
-        AuthenticationService,
         { provide: Router, useValue: mockRouter },
+        provideMockStore({}),
       ],
     }).compileComponents()
   );
@@ -26,7 +28,7 @@ describe('HeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    authService = TestBed.inject(AuthenticationService);
+    store = TestBed.inject(MockStore);
 
     fixture.detectChanges();
   });
@@ -37,11 +39,11 @@ describe('HeaderComponent', () => {
 
   describe('logout', () => {
     it('should call logout from auth service', () => {
-      spyOn(authService, 'logout');
-
+      spyOn(store, 'dispatch').and.callThrough();
       component.logout();
 
-      expect(authService.logout).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(logout());
+
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
     });
   });

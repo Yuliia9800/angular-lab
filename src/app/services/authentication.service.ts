@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginResponse, User, UserResponse } from '../utils/public_api';
-import { BehaviorSubject, Subject, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { LoginResponse, UserResponse } from 'utils/public_api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  user$ = new BehaviorSubject(
-    JSON.parse(localStorage.getItem('user') || '{}') as any
-  );
   token$ = new BehaviorSubject(localStorage.getItem('token') || '');
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(profile: any) {
     return this.http
@@ -21,15 +20,11 @@ export class AuthenticationService {
         password: profile.password,
       })
       .pipe(
+        tap(() => this.router.navigate(['/courses'])),
         map((data) => {
           this.token$.next(data.token);
-          localStorage.setItem('token', this.token$.value);
 
           return data;
-        }),
-        catchError((err) => {
-          console.error(err);
-          return throwError(() => new Error(err));
         })
       );
   }
@@ -37,9 +32,6 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-
-    this.user$.next({});
-    this.token$.next('');
   }
 
   isAuthenticated() {
@@ -47,25 +39,8 @@ export class AuthenticationService {
   }
 
   getUserInfo() {
-    return this.http
-      .post<UserResponse>('auth/userinfo', { token: this.token$.value })
-      .pipe(
-        map((data) => {
-          const user = {
-            id: data.id,
-            firstName: data.name.first,
-            lastName: data.name.last,
-          };
-
-          this.user$.next(user);
-          localStorage.setItem('user', JSON.stringify(user));
-
-          return data;
-        }),
-        catchError((err) => {
-          console.error(err);
-          return throwError(() => new Error(err));
-        })
-      );
+    return this.http.post<UserResponse>('auth/userinfo', {
+      token: this.token$.value,
+    });
   }
 }

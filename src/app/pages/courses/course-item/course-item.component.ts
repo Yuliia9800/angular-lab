@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { CourseItem } from 'src/app/utils/public_api';
+import { CourseItem } from 'utils/public_api';
 
 @Component({
   selector: 'app-course-item',
