@@ -12,6 +12,15 @@
   }
 }
 
+h2 {
+  color: $dart-text;
+  font-size: 24px;
+  text-transform: none;
+  text-align: left;
+  font-weight: 600;
+  height: 40px;
+}
+
 .rectangle {
   @include light-shadow;
   width: 730px;
@@ -24,15 +33,6 @@
   padding: 24px;
   border-width: 1px;
 
-  & h2 {
-    color: $dart-text;
-    font-size: 24px;
-    text-transform: none;
-    text-align: left;
-    font-weight: 600;
-    height: 40px;
-  }
-
   & form {
     display: grid;
 
@@ -40,7 +40,7 @@
       align-items: center;
       display: flex;
       justify-content: space-between;
-      padding: 0 0 10px;
+      padding: 0 0 5px;
       line-height: 24px;
       letter-spacing: 0;
       color: $dart-text;
@@ -48,14 +48,19 @@
       text-transform: none;
       text-align: left;
       font-weight: 600;
+    }
 
-      & span {
-        line-height: 24px;
-        letter-spacing: 0;
-        color: $gray-text;
-        font-size: 12px;
-        font-weight: 400;
-      }
+    & span {
+      line-height: 24px;
+      letter-spacing: 0;
+      color: $gray-text;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    & .alert {
+      color: red;
+      font-weight: 500;
     }
 
     & .field {
@@ -71,18 +76,15 @@
       border-style: solid;
     }
 
+    & .error {
+      border-color: red;
+      border-width: 2px;
+    }
+
     & .description {
       resize: none;
       padding: 5px 10px;
       height: 108px;
-    }
-
-    & .duration {
-      width: 150px;
-    }
-
-    & .date {
-      width: 150px;
     }
 
     & .authors {

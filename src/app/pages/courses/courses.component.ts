@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
-import { CourseItem } from 'utils/public_api';
+import { Course } from 'utils/public_api';
 import { CoursesService } from 'services/courses.service';
 import { loadCourses, setCourseId } from 'store/courses/courses.actions';
 import { AppState, selectCourses } from 'store';
@@ -16,7 +16,7 @@ import { AppState, selectCourses } from 'store';
 export class CoursesComponent implements OnInit {
   count = 10;
   search$ = new BehaviorSubject<string>('');
-  courses$: Observable<CourseItem[]> = this.store.select(selectCourses);
+  courses$: Observable<Course[]> = this.store.select(selectCourses);
 
   constructor(
     private coursesService: CoursesService,

@@ -1,6 +1,6 @@
-import { CourseItem } from './global.modules';
+import { Course } from './global.modules';
 
-export const courses: CourseItem[] = [
+export const courses: Course[] = [
   {
     id: 1,
     name: 'Video Course 1. Name tag',

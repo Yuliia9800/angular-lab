@@ -1,0 +1,12 @@
+<input
+  class="field"
+  id="date"
+  type="text"
+  placeholder="mm/dd/yyyy"
+  name="date"
+  required
+  [(ngModel)]="value"
+  (change)="onChange(value)"
+  (blur)="onTouched()"
+  [ngClass]="{ 'has-error': hasError }"
+/>

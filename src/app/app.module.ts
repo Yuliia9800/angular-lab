@@ -11,23 +11,30 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { CoursesComponent } from './pages/courses/courses.component';
-import { CourseItemComponent } from './pages/courses/course-item/course-item.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
+
+import { CoursesComponent } from './pages/courses/courses.component';
+import { CourseItemComponent } from './pages/courses/course-item/course-item.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AddCourseComponent } from './pages/courses/add-course/add-course.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { DatePickerComponent } from './pages/courses/add-course/components/date-picker/date-picker.component';
+import { MultiSelectComponent } from './pages/courses/add-course/components/multi-select/multi-select.component';
+import { DurationComponent } from './pages/courses/add-course/components/duration/duration.component';
+
 import { AuthInterceptorInterceptor } from './services/auth-interceptor.interceptor';
 import { BaseUrlInterceptorInterceptor } from './services/base-url-interceptor.interceptor';
-import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { SpinnerInterceptor } from './services/spinner.interceptor';
 
 import { userReducer } from './store/user/user.reducer';
@@ -50,6 +57,9 @@ import * as coursesEffects from './store/courses/courses.effect';
     AddCourseComponent,
     PagenotfoundComponent,
     SpinnerComponent,
+    DurationComponent,
+    DatePickerComponent,
+    MultiSelectComponent,
   ],
   imports: [
     HttpClientModule,
@@ -63,6 +73,7 @@ import * as coursesEffects from './store/courses/courses.effect';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     StoreModule.forRoot(
       {
         courses: coursesReducer,

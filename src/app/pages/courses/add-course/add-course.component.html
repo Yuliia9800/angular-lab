@@ -1,21 +1,53 @@
 <div class="container">
   <div class="rectangle">
     <h2>New Course</h2>
+
     <form [formGroup]="newCourseForm" (ngSubmit)="submit()">
-      <label for="name"><b>Title:</b><span>* required</span></label>
+      <label for="name">
+        <b>Title:</b>
+        <span>* required</span>
+      </label>
+      <span
+        class="alert alert-danger"
+        *ngIf="
+          form['name'].touched && form['name'].invalid && form['name'].errors
+        "
+      >
+        <div *ngIf="form['name'].hasError('required')">Title is required</div>
+        <div *ngIf="form['name'].hasError('maxlength')">
+          Title max length 50 character
+        </div>
+      </span>
+
       <input
-        class="field"
         id="name"
+        class="field"
         type="text"
-        placeholder="Text input"
+        placeholder="Add title"
         name="title"
         required
         formControlName="name"
+        [ngClass]="{ error: form['name'].touched && form['name'].invalid }"
       />
 
       <label for="description">
         <b>Description:</b><span>* required</span>
       </label>
+      <span
+        class="alert alert-danger"
+        *ngIf="
+          form['description'].touched &&
+          form['description'].invalid &&
+          form['description'].errors
+        "
+      >
+        <div *ngIf="form['description'].hasError('required')">
+          Description is required
+        </div>
+        <div *ngIf="form['description'].hasError('maxlength')">
+          Description max length 500 character
+        </div>
+      </span>
       <textarea
         matInput
         id="description"
@@ -24,46 +56,73 @@
         placeholder="Add description"
         required
         formControlName="description"
+        [ngClass]="{
+          error: form['description'].touched && form['description'].invalid
+        }"
       ></textarea>
 
-      <label for="length"><b>Duration:</b><span>* required</span></label>
-      <input
-        class="field duration"
-        id="length"
-        type="number"
-        min="0"
-        placeholder="minutes"
-        name="duration"
-        required
-        formControlName="length"
-      />
+      <label for="duration"><b>Duration:</b><span>* required</span> </label>
+      <span
+        class="alert"
+        *ngIf="
+          form['duration'].touched &&
+          form['duration'].invalid &&
+          form['duration'].errors
+        "
+      >
+        <div *ngIf="form['duration'].hasError('required')">
+          Duration is required
+        </div>
+        <div *ngIf="form['duration'].hasError('onlyNumber')">
+          Duration should be number
+        </div>
+      </span>
+      <app-duration formControlName="duration" />
 
-      <label for="date"><b>Date:</b><span>* required</span></label>
-      <input
-        class="field date"
-        id="date"
-        type="date"
-        placeholder="MM/DD/YYYY"
-        name="date"
-        required
+      <label for="date"> <b>Date:</b><span>* required</span> </label>
+      <span
+        class="alert"
+        *ngIf="
+          form['date'].touched && form['date'].invalid && form['date'].errors
+        "
+      >
+        <div *ngIf="form['date'].hasError('required')">Date is required</div>
+        <div *ngIf="form['date'].hasError('invalidDateFormat')">
+          Date should be in dd/mm/yyyy format
+        </div>
+      </span>
+      <app-date-picker
         formControlName="date"
+        [hasError]="form['date'].touched && form['date'].invalid"
       />
 
       <label for="authors"><b>Authors:</b><span>* required</span></label>
-      <input
-        class="field authors"
-        id="authors"
-        type="text"
-        placeholder="Start typing"
-        name="authors"
-        required
+      <span
+        class="alert"
+        *ngIf="
+          form['authors'].touched &&
+          form['authors'].invalid &&
+          form['authors'].errors
+        "
+      >
+        <div *ngIf="form['authors'].hasError('minLength')">
+          Should be at least one author
+        </div>
+      </span>
+
+      <app-multi-select
         formControlName="authors"
+        [options]="$any(authors$ | async)"
+        [hasError]="form['authors'].touched && form['authors'].invalid"
       />
       <div class="buttons">
         <button mat-flat-button color="accent" type="button" (click)="cancel()">
           Cancel
         </button>
-        <button mat-flat-button color="accent" type="submit">Save</button>
+        <button mat-flat-button color="accent" type="submit">
+          <!-- [disabled]="!newCourseForm.valid" -->
+          Save
+        </button>
       </div>
     </form>
   </div>

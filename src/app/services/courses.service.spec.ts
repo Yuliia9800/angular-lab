@@ -4,7 +4,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 
-import { CourseItem } from 'utils/global.modules';
+import { Course } from 'utils/global.modules';
 import { CoursesService } from './courses.service';
 
 describe('CoursesService', () => {
@@ -40,7 +40,7 @@ describe('CoursesService', () => {
 
   describe('createCourse', () => {
     it('should add new course', () => {
-      const mockCourse = { id: 2 } as CourseItem;
+      const mockCourse = { id: 2 } as Course;
       const mockResponse: any = [mockCourse];
 
       service.createCourse(mockCourse).subscribe((res) => {

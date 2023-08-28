@@ -1,0 +1,12 @@
+<input
+  id="length"
+  placeholder="minutes"
+  name="duration"
+  type="text"
+  class="field"
+  required
+  [(ngModel)]="value"
+  (change)="onChange(value)"
+  (blur)="onTouched()"
+  [ngClass]="{ 'has-error': hasError }"
+/>

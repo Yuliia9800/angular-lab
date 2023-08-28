@@ -1,4 +1,4 @@
-import { CourseItem } from 'utils/public_api';
+import { Author, Course } from 'utils/public_api';
 import { createAction, props } from '@ngrx/store';
 
 export const loadCourses = createAction(
@@ -8,12 +8,12 @@ export const loadCourses = createAction(
 
 export const setCourses = createAction(
   '[Courses] Set Courses',
-  props<{ courses: CourseItem[] }>()
+  props<{ courses: Course[] }>()
 );
 
 export const setCourse = createAction(
   '[Courses] Set Course',
-  props<{ course: CourseItem }>()
+  props<{ course: Course }>()
 );
 
 export const setCourseId = createAction(
@@ -25,12 +25,12 @@ export const resetCourseId = createAction('[Courses] Reset Course ID');
 
 export const createCourse = createAction(
   '[Courses] Create Course',
-  props<{ course: CourseItem }>()
+  props<{ course: Course }>()
 );
 
 export const updateCourse = createAction(
   '[Courses] Update Course',
-  props<{ id: number; course: CourseItem }>()
+  props<{ id: number; course: Course }>()
 );
 
 export const deleteCourse = createAction(
@@ -41,4 +41,10 @@ export const deleteCourse = createAction(
 export const getCourseById = createAction(
   '[Courses] Get Course By Id',
   props<{ id: number }>()
+);
+
+export const getAuthors = createAction('[Courses] Get Authors');
+export const setAuthors = createAction(
+  '[Courses] Set Authors',
+  props<{ authors: Author[] }>()
 );
