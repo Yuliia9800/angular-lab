@@ -7,8 +7,10 @@ import { CoursesService } from 'services/courses.service';
 import {
   createCourse,
   deleteCourse,
+  getAuthors,
   getCourseById,
   loadCourses,
+  setAuthors,
   setCourse,
   setCourseId,
   setCourses,
@@ -67,8 +69,8 @@ export const createCourseEffect = createEffect(
   ) => {
     return actions$.pipe(
       ofType(createCourse.type),
-      switchMap((payload) =>
-        coursesService.createCourse(payload).pipe(
+      switchMap(({ course }) =>
+        coursesService.createCourse(course).pipe(
           tap(() => {
             router.navigate(['courses']);
           }),
@@ -140,4 +142,22 @@ export const setCourseIdEffect = createEffect(
     );
   },
   { functional: true, dispatch: false }
+);
+
+export const getAuthorsEffect = createEffect(
+  (actions$ = inject(Actions), coursesService = inject(CoursesService)) => {
+    return actions$.pipe(
+      ofType(getAuthors.type),
+      switchMap(() =>
+        coursesService.getAuthors().pipe(
+          map((authors) => setAuthors({ authors })),
+          catchError((error) => {
+            console.error(error);
+            return EMPTY;
+          })
+        )
+      )
+    );
+  },
+  { functional: true }
 );

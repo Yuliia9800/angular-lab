@@ -1,0 +1,19 @@
+@import "colors";
+
+input {
+  height: 36px;
+  width: 150px;
+  padding: 0 10px;
+  border-radius: 3px;
+  margin: 0 0 10px;
+  border: 1px solid #ced0db;
+  background: $white-text;
+  box-sizing: border-box;
+  border-color: #ced0db;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.has-error {
+  border: 2px solid red;
+}

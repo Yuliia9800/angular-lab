@@ -4,13 +4,13 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { first } from 'rxjs';
 
-import { CourseItem } from 'utils/public_api';
+import { Course } from 'utils/public_api';
 import { DurationPipe } from 'pipes/duration.pipe';
 import { BorderColorDirective } from 'directives/border-color.directive';
 import { CourseItemComponent } from './course-item.component';
 
 describe('CourseItemComponent', () => {
-  const course: CourseItem = {
+  const course: Course = {
     id: 1,
     name: 'test',
     description: 'test2',

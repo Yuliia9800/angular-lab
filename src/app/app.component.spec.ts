@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockStore } from '@ngrx/store/testing';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppComponent } from './app.component';
 import { CourseItemComponent } from './pages/courses/course-item/course-item.component';
@@ -24,6 +25,9 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { BorderColorDirective } from './directives/border-color.directive';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { DatePickerComponent } from 'pages/courses/add-course/components/date-picker/date-picker.component';
+import { DurationComponent } from 'pages/courses/add-course/components/duration/duration.component';
+import { MultiSelectComponent } from 'pages/courses/add-course/components/multi-select/multi-select.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -40,6 +44,7 @@ describe('AppComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        NgSelectModule,
       ],
       declarations: [
         AppComponent,
@@ -55,6 +60,9 @@ describe('AppComponent', () => {
         AddCourseComponent,
         PagenotfoundComponent,
         SpinnerComponent,
+        DurationComponent,
+        DatePickerComponent,
+        MultiSelectComponent,
       ],
       providers: [provideMockStore({})],
     }).compileComponents()

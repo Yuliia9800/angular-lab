@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { CourseItem } from 'utils/public_api';
+import { Course } from 'utils/public_api';
 
 @Component({
   selector: 'app-course-item',
@@ -14,7 +14,7 @@ import { CourseItem } from 'utils/public_api';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseItemComponent {
-  @Input() course = {} as CourseItem;
+  @Input() course = {} as Course;
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<number>();
 

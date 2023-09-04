@@ -1,17 +1,17 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
-import { AppState, selectCourse } from 'store';
+import { Subscription, tap } from 'rxjs';
+import { AppState, selectAuthors, selectCourse } from 'store';
 import {
   createCourse,
   getCourseById,
   resetCourseId,
   updateCourse,
 } from 'store/courses/courses.actions';
-import { CourseItem } from 'utils/global.modules';
+import { Course } from 'utils/global.modules';
 
 @Component({
   selector: 'app-add-course',
@@ -19,9 +19,11 @@ import { CourseItem } from 'utils/global.modules';
   styleUrls: ['./add-course.component.scss'],
   providers: [DatePipe],
 })
-export class AddCourseComponent implements OnInit {
+export class AddCourseComponent implements OnInit, OnDestroy {
   courseId!: number;
+  subscription!: Subscription;
   course$ = this.store.select(selectCourse);
+  authors$ = this.store.select(selectAuthors);
 
   constructor(
     private router: Router,
@@ -31,27 +33,33 @@ export class AddCourseComponent implements OnInit {
   ) {}
 
   newCourseForm = new FormGroup({
-    name: new FormControl(''),
-    description: new FormControl(''),
-    length: new FormControl<number | null>(null),
-    date: new FormControl<string>(''),
+    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    description: new FormControl('', [
+      (Validators.required, Validators.maxLength(500)),
+    ]),
+    duration: new FormControl<number | null>(null, [Validators.required]),
+    date: new FormControl<string>('', [Validators.required]),
     authors: new FormControl<{ id: number; name: string }[]>([]),
   });
+
+  get form() {
+    return this.newCourseForm.controls;
+  }
 
   ngOnInit() {
     if (this.router.url.includes('new')) return;
 
     this.courseId = this.activateRoute.snapshot.params['id'];
 
-    this.course$
+    this.subscription = this.course$
       .pipe(
-        map((course) => {
+        tap((course) => {
           if (course) {
             this.newCourseForm.setValue({
               name: course.name,
               description: course.description,
-              length: course.length,
-              date: this.datePipe.transform(course.date, 'yyyy-MM-dd'),
+              duration: course.length,
+              date: this.datePipe.transform(course.date, 'dd/MM/yyyy'),
               authors: course.authors,
             });
           } else {
@@ -62,14 +70,22 @@ export class AddCourseComponent implements OnInit {
       .subscribe();
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
   submit() {
-    const course = this.newCourseForm.value as CourseItem;
+    const { duration, date, ...rest } = this.newCourseForm.value;
+
+    const course = {
+      length: Number(duration),
+      date: new Date(date as string).toISOString(),
+      ...rest,
+    } as Course;
 
     this.courseId
       ? this.store.dispatch(updateCourse({ id: this.courseId, course }))
       : this.store.dispatch(createCourse({ course }));
-
-    this.store.dispatch(createCourse({ course }));
   }
 
   cancel() {

@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -51,10 +56,16 @@ describe('AddCourseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddCourseComponent);
     component = fixture.componentInstance;
+    component.newCourseForm = new FormGroup({
+      name: new FormControl(''),
+      description: new FormControl(''),
+      duration: new FormControl<number | null>(null),
+      date: new FormControl<string>('10/10/2023'),
+      authors: new FormControl<{ id: number; name: string }[]>([]),
+    });
     store = TestBed.inject(MockStore);
 
     spyOn(store, 'dispatch').and.callThrough();
-    fixture.detectChanges();
   });
 
   it('should be created', () => {

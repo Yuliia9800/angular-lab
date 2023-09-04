@@ -1,0 +1,11 @@
+<ng-select
+  [items]="options"
+  bindLabel="name"
+  placeholder="Select Authors"
+  appendTo="body"
+  [multiple]="true"
+  [(ngModel)]="selected"
+  (change)="onChange(selected)"
+  (blur)="onTouched()"
+  [ngClass]="{ 'has-error': hasError }"
+></ng-select>

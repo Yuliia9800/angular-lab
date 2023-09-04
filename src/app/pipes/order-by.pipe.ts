@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CourseItem } from 'utils/global.modules';
+import { Course } from 'utils/global.modules';
 
 @Pipe({
   name: 'orderBy',
 })
 export class OrderByPipe implements PipeTransform {
-  transform(array: CourseItem[], field: keyof CourseItem): CourseItem[] {
-    array.sort((a: CourseItem, b: CourseItem) => {
+  transform(array: Course[], field: keyof Course): Course[] {
+    array.sort((a: Course, b: Course) => {
       if (a[field] < b[field]) {
         return -1;
       } else if (a[field] > b[field]) {
